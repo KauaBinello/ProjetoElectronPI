@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de medicamentos</title>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="medicamento.css">
+</head>
+
+<body>
+    <input type="text" id="campo-pesquisa" placeholder="Buscar por nome..." />
+    <p id="table"></p>
+    <button id="btn-limpar">
+        <i data-lucide="eraser"></i>
+    </button>
+    <table id="medicamentosTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Embalagem</th>
+                <th>Saldo</th>
+                <th>Validade</th>
+            </tr>
+        </thead>
+        <tbody id="medicamentosTableDados">
+        </tbody>
+    </table>
+
+
+    <!--modal-->
+    <div id="modal">
+        <h3>Edite os dados do medicamento:</h3>
+
+        <label>ID: <input type="text" id="medicamento-id" readonly />
+        </label>
+
+        <label>Nome: <input type="text" id="medicamento-nome">
+        </label>
+
+        <label>Embalagem: <input type="text" id="medicamento-embalagem">
+        </label>
+
+        <label>Saldo:</label>
+        <input type="number" id="medicamento-saldo">
+
+        <label>Validade:</label>
+        <input type="date" id="medicamento-validade">
+
+        <button id="btn-salvar">
+            <i data-lucide="save"></i>
+        </button>
+        <button id="btn-deletar">
+            <i data-lucide="trash2"></i>
+        </button>
+
+    </div>
+
+
+    <script src="medicamento.js"></script>
+</body>
+
+</html>

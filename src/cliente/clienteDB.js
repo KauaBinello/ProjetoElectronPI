@@ -1,0 +1,49 @@
+const db = require('../db');
+
+async function getClientes() {
+
+    const sql = await db.query(`SELECT id,
+nome,
+cpf,
+telefone,
+TO_CHAR (nascimento, 'YYYY-MM-DD') AS nascimento,
+TO_CHAR (nascimento, 'DD/MM/YYYY') AS nascimento_formatada,
+endereco,
+numero_residencial,
+bairro,
+cidade,
+uf
+FROM pi.clientes
+ORDER BY id ASC 
+`)
+    return sql.rows;
+}
+
+async function adicionarCliente(event, nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento) {
+    const sql = `INSERT INTO pi.clientes(
+	nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento)
+	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
+    const values = [nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento]
+    await db.query(sql, values)
+}
+
+async function atualizarCliente(event, nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id) {
+    const sql = `UPDATE pi.clientes
+    SET nome = $1, cpf = $2, endereco = $3, numero_residencial = $4, bairro = $5, cidade = $5, uf = $6, telefone = $7, nascimento = $8 WHERE id = $9`
+    const values = [nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id]
+    await db.query(sql, values)
+}
+
+async function deletarCliente(event, id) {
+    const sql = `DELETE FROM pi.clientes
+	WHERE id = $1;`
+    const values = [id]
+    await db.query(sql, values)
+}
+
+module.exports = {
+    getClientes,
+    adicionarCliente,
+    atualizarCliente,
+    deletarCliente
+}

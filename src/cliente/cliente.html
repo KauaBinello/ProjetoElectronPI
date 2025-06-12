@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de clientes</title>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="cliente.css">
+</head>
+
+<body>
+    <input type="text" id="campo-pesquisa" placeholder="Buscar por nome..." />
+    <p id="table"></p>
+    <button id="btn-limpar">
+        <i data-lucide="eraser"></i>
+    </button>
+    <table id="clientesTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>cpf</th>
+                <th>telefone</th>
+                <th>Data de nascimento</th>
+                <th>Endereço</th>
+                <th>Número residencial</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="clientesTableDados">
+        </tbody>
+    </table>
+
+
+    <!--modal-->
+    <div id="modal">
+        <h3>Edite os dados do cliente:</h3>
+
+        <label>ID: <input type="text" id="cliente-id" readonly />
+        </label>
+
+        <label>Nome: <input type="text" id="cliente-nome">
+        </label>
+
+        <label>cpf: <input type="text" id="cliente-cpf">
+        </label>
+
+        <label>Telefone: <input type="text" id="cliente-telefone">
+        </label>
+
+        <label>Data de nascimento:</label>
+        <input type="date" id="cliente-nascimento">
+
+        <label>Endereço: <input type="text" id="cliente-endereco">
+        </label>
+
+        <label>Número residencial: <input type="text" id="cliente-numero-residencial">
+        </label>
+
+        <label>Cidade: <input type="text" id="cliente-cidade">
+        </label>
+
+        <label>Estado: <input type="text" id="cliente-estado">
+        </label>
+
+        <button id="btn-salvar">
+            <i data-lucide="save"></i>
+        </button>
+        <button id="btn-deletar">
+            <i data-lucide="trash2"></i>
+        </button>
+
+    </div>
+
+
+    <script src="cliente.js"></script>
+</body>
+
+</html>
