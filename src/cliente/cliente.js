@@ -13,7 +13,47 @@ const botaoSalvar = document.getElementById('btn-salvar')
 const botaoDeletar = document.getElementById('btn-deletar')
 const botaoLimpar = document.getElementById('btn-limpar')
 
+botaoLimpar.addEventListener('click', limparCamposCliente);
+botaoSalvar.addEventListener('click', salvarCliente);
+botaoDeletar.addEventListener('click', deletarCliente);
+
 let listaCompletaDeClientes = []
+
+function limparCamposCliente() {
+    mostrarDetalhes('', '', '', '', '', '', '', '', '');
+}
+
+async function salvarCliente() {
+    const id = modalIdcliente.value;
+    const nome = modalNomeCliente.value;
+    const cpf = modalCpfCliente.value;
+    const telefone = modalTelefoneCliente.value;
+    const nascimento = modalNascimentoCliente.value;
+    const endereco = modalEnderecoCliente.value;
+    const numero_residencial = modalNumeroResidencialCliente.value;
+    const cidade = modalCidadeCliente.value;
+    const uf = modalEstadoCliente.value;
+    if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !cidade || !uf) {
+        alert('Por favor, preencha os campos obrigatórios.');
+        return;
+    }
+    if (id === '') {
+        await window.projetoAPI.adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, cidade, uf);
+    } else {
+        await window.projetoAPI.atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, cidade, uf, id);
+    }
+    carregarClientes();
+    limparCamposCliente();
+}
+
+async function deletarCliente() {
+    const id = modalIdcliente.value;
+    if (!id) {
+        alert('Por favor, selecione um cliente para deletar.');
+        return;
+    }
+    await window.projetoAPI.deletarCliente(id);
+}
 
 function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_residencial, cidade, uf) {
     modalIdcliente.value = id

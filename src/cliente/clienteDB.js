@@ -29,7 +29,7 @@ async function adicionarCliente(event, nome, cpf, endereco, numero_residencial, 
 
 async function atualizarCliente(event, nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id) {
     const sql = `UPDATE pi.clientes
-    SET nome = $1, cpf = $2, endereco = $3, numero_residencial = $4, bairro = $5, cidade = $5, uf = $6, telefone = $7, nascimento = $8 WHERE id = $9`
+    SET nome = $1, cpf = $2, endereco = $3, numero_residencial = $4, bairro = $5, cidade = $6, uf = $7, telefone = $8, nascimento = $9 WHERE id = $10`
     const values = [nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id]
     await db.query(sql, values)
 }
