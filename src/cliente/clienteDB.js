@@ -1,7 +1,6 @@
 const db = require('../db');
 
 async function getClientes() {
-
     const sql = await db.query(`SELECT id,
 nome,
 cpf,
@@ -19,18 +18,18 @@ ORDER BY id ASC
     return sql.rows;
 }
 
-async function adicionarCliente(event, nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento) {
+async function adicionarCliente(event, nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf) {
     const sql = `INSERT INTO pi.clientes(
-	nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento)
+	nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf)
 	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);`
-    const values = [nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento]
+    const values = [nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf]
     await db.query(sql, values)
 }
 
-async function atualizarCliente(event, nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id) {
+async function atualizarCliente(event, nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id) {
     const sql = `UPDATE pi.clientes
-    SET nome = $1, cpf = $2, endereco = $3, numero_residencial = $4, bairro = $5, cidade = $6, uf = $7, telefone = $8, nascimento = $9 WHERE id = $10`
-    const values = [nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id]
+    SET nome = $1, cpf = $2, telefone = $3, nascimento = $4, endereco = $5, numero_residencial = $6, bairro = $7, cidade = $8, uf = $9 WHERE id = $10`
+    const values = [nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id]
     await db.query(sql, values)
 }
 

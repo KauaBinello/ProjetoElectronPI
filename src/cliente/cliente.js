@@ -6,6 +6,7 @@ const modalTelefoneCliente = document.getElementById('cliente-telefone')
 const modalNascimentoCliente = document.getElementById('cliente-nascimento')
 const modalEnderecoCliente = document.getElementById('cliente-endereco')
 const modalNumeroResidencialCliente = document.getElementById('cliente-numero-residencial')
+const modalBairroCliente = document.getElementById('cliente-bairro')
 const modalCidadeCliente = document.getElementById('cliente-cidade')
 const modalEstadoCliente = document.getElementById('cliente-estado')
 
@@ -20,7 +21,7 @@ botaoDeletar.addEventListener('click', deletarCliente);
 let listaCompletaDeClientes = []
 
 function limparCamposCliente() {
-    mostrarDetalhes('', '', '', '', '', '', '', '', '');
+    mostrarDetalhes('', '', '', '', '', '', '', '', '', '');
 }
 
 async function salvarCliente() {
@@ -31,16 +32,18 @@ async function salvarCliente() {
     const nascimento = modalNascimentoCliente.value;
     const endereco = modalEnderecoCliente.value;
     const numero_residencial = modalNumeroResidencialCliente.value;
+    const bairro = modalBairroCliente.value
     const cidade = modalCidadeCliente.value;
     const uf = modalEstadoCliente.value;
-    if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !cidade || !uf) {
+
+    if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !bairro || !cidade || !uf) {
         alert('Por favor, preencha os campos obrigatórios.');
         return;
     }
     if (id === '') {
-        await window.projetoAPI.adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, cidade, uf);
+        await window.projetoAPI.adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf.toUpperCase());
     } else {
-        await window.projetoAPI.atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, cidade, uf, id);
+        await window.projetoAPI.atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id.toUpperCase());
     }
     carregarClientes();
     limparCamposCliente();
@@ -55,7 +58,7 @@ async function deletarCliente() {
     await window.projetoAPI.deletarCliente(id);
 }
 
-function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_residencial, cidade, uf) {
+function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf) {
     modalIdcliente.value = id
     modalNomeCliente.value = nome
     modalCpfCliente.value = cpf
@@ -63,16 +66,17 @@ function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_r
     modalNascimentoCliente.value = nascimento
     modalEnderecoCliente.value = endereco
     modalNumeroResidencialCliente.value = numero_residencial
+    modalBairroCliente.value = bairro
     modalCidadeCliente.value = cidade
     modalEstadoCliente.value = uf
 }
 
 async function carregarClientes() {
-    listaCompletaDeClientes = await window.projetoAPI.getClientes(); // salva a lista globalmente
-    mostrarClientesNaTabela(listaCompletaDeClientes); // exibe tudo na tela
+    await mostrarClientesNaTabela(); // exibe tudo na tela
 }
 
-function mostrarClientesNaTabela(lista) {
+async function mostrarClientesNaTabela() {
+    let lista = await window.projetoAPI.getClientes(); // salva a lista globalmente
     tabelaCliente.innerHTML = ''; // limpa
 
     if (lista.length === 0) {
@@ -98,6 +102,7 @@ function pesquisa() {
 }
 
 async function criarLinhaCliente(cliente) {
+
     const linha = document.createElement('tr');
 
     const celulaId = document.createElement('td');
@@ -128,19 +133,23 @@ async function criarLinhaCliente(cliente) {
     celulaNumero.textContent = cliente.numero_residencial;
     linha.appendChild(celulaNumero);
 
+    const celulaBairro = document.createElement('td');
+    celulaBairro.textContent = cliente.bairro;
+    linha.appendChild(celulaBairro);
+
     const celulaCidade = document.createElement('td');
     celulaCidade.textContent = cliente.cidade;
     linha.appendChild(celulaCidade);
 
     const celulaEstado = document.createElement('td');
-    celulaEstado.textContent = cliente.estado;
+    celulaEstado.textContent = cliente.uf;
     linha.appendChild(celulaEstado);
 
     const celulaBotao = document.createElement('td');
 
     const botao = document.createElement('button');
     botao.addEventListener('click',
-        function () { mostrarDetalhes(cliente.id, cliente.nome, cliente.cpf, cliente.telefone, cliente.nascimento, cliente.endereco, cliente.numero_residencial, cliente.cidade, cliente.uf) }
+        function () { mostrarDetalhes(cliente.id, cliente.nome, cliente.cpf, cliente.telefone, cliente.nascimento, cliente.endereco, cliente.numero_residencial, cliente.bairro, cliente.cidade, cliente.uf) }
     )
 
     const icone = document.createElement('i');
@@ -154,5 +163,6 @@ async function criarLinhaCliente(cliente) {
 
     lucide.createIcons();
 
-} pesquisa()
+}
+pesquisa()
 carregarClientes();

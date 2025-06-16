@@ -18,15 +18,16 @@ async function deletarMedicamento(id) {
 async function getClientes() {
     return ipcRenderer.invoke('get-cliente');
 }
-async function adicionarCliente(nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento) {
-    ipcRenderer.invoke('adicionar-cliente', nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento)
+async function adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf) {
+    return ipcRenderer.invoke('adicionar-cliente', nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf)
 }
-async function atualizarCliente(nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id) {
-    ipcRenderer.invoke('atualizar-cliente', nome, cpf, endereco, numero_residencial, bairro, cidade, uf, telefone, nascimento, id)
+async function atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id) {
+    return ipcRenderer.invoke('atualizar-cliente', nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id)
 }
 async function deletarCliente(id) {
-    ipcRenderer.invoke('deletar-cliente', id)
+    return ipcRenderer.invoke('deletar-cliente', id)
 }
+
 //janelas
 function abrirMedicamento() {
     ipcRenderer.send('abrir-medicamento');
