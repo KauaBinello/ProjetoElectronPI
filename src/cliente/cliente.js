@@ -72,11 +72,11 @@ function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_r
 }
 
 async function carregarClientes() {
-    await mostrarClientesNaTabela(); // exibe tudo na tela
+    listaCompletaDeClientes = await window.projetoAPI.getClientes(); // salva a lista globalmente
+    mostrarClientesNaTabela(listaCompletaDeClientes); // exibe tudo na tela
 }
 
-async function mostrarClientesNaTabela() {
-    let lista = await window.projetoAPI.getClientes(); // salva a lista globalmente
+async function mostrarClientesNaTabela(lista) {
     tabelaCliente.innerHTML = ''; // limpa
 
     if (lista.length === 0) {
