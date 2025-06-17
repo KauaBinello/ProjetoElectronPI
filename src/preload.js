@@ -28,12 +28,29 @@ async function deletarCliente(id) {
     return ipcRenderer.invoke('deletar-cliente', id)
 }
 
+//usuario
+async function getUsuarios() {
+    return ipcRenderer.invoke('get-usuario')
+}
+async function adicionarUsuario(nome, email, login, senha) {
+    return ipcRenderer.invoke('adicionar-usuario', nome, email, login, senha)
+}
+async function atualizarUsuario(nome, email, login, senha, id) {
+    return ipcRenderer.invoke('atualizar-usuario', nome, email, login, senha, id)
+}
+async function deletarUsuario(id) {
+    return ipcRenderer.invoke('deletar-usuario', id)
+}
+
 //janelas
 function abrirMedicamento() {
     ipcRenderer.send('abrir-medicamento');
 }
 function abrirCliente() {
     ipcRenderer.send('abrir-cliente')
+}
+function abrirUsuario() {
+    ipcRenderer.send('abrir-usuario')
 }
 
 // Expondo as APIs para o contexto da janela principal
@@ -47,13 +64,19 @@ contextBridge.exposeInMainWorld('projetoAPI',
         getClientes: getClientes,
         adicionarCliente: adicionarCliente,
         atualizarCliente: atualizarCliente,
-        deletarCliente: deletarCliente
+        deletarCliente: deletarCliente,
+
+        getUsuarios: getUsuarios,
+        adicionarUsuario: adicionarUsuario,
+        atualizarUsuario: atualizarUsuario,
+        deletarUsuario: deletarUsuario
     }
 )
 
 contextBridge.exposeInMainWorld('janelaAPI',
     {
         abrirMedicamento: abrirMedicamento,
-        abrirCliente: abrirCliente
+        abrirCliente: abrirCliente,
+        abrirUsuario: abrirUsuario
     }
 );

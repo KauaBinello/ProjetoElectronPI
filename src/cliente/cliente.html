@@ -13,9 +13,6 @@
 <body>
     <input type="text" id="campo-pesquisa" placeholder="Buscar por nome..." />
     <p id="table"></p>
-    <button id="btn-limpar">
-        <i data-lucide="eraser"></i>
-    </button>
     <table id="clientesTable">
         <thead>
             <tr>
@@ -29,6 +26,7 @@
                 <th>Bairro</th>
                 <th>Cidade</th>
                 <th>Estado</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody id="clientesTableDados">
@@ -38,6 +36,9 @@
 
     <!--modal-->
     <div id="modal">
+        <button id="btn-limpar">
+            <i data-lucide="eraser"></i>
+        </button>
         <h3>Edite os dados do cliente:</h3>
 
         <label>ID: <input type="text" id="cliente-id" readonly />
@@ -70,13 +71,14 @@
         <label>Estado: <input type="text" id="cliente-estado">
         </label>
 
-        <button id="btn-salvar">
-            <i data-lucide="save"></i>
-        </button>
-        <button id="btn-deletar">
-            <i data-lucide="trash2"></i>
-        </button>
-
+        <div class="modal-actions">
+            <button id="btn-salvar">
+                <i data-lucide="save"></i>
+            </button>
+            <button id="btn-deletar">
+                <i data-lucide="trash-2"></i>
+            </button>
+        </div>
     </div>
 
 

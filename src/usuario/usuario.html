@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de usuários</title>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="usuario.css">
+</head>
+
+<body>
+    <input type="text" id="campo-pesquisa" placeholder="Buscar por nome..." />
+    <p id="table"></p>
+    <table id="usuariosTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Login</th>
+                <th>Senha</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+
+        <tbody id="usuariosTableDados">
+        </tbody>
+    </table>
+
+
+    <!--modal-->
+    <div id="modal">
+        <button id="btn-limpar">
+            <i data-lucide="eraser"></i>
+        </button>
+        <h3>Edite os dados do usuário:</h3>
+
+        <label>ID: <input type="text" id="usuario-id" readonly />
+        </label>
+
+        <label>Nome: <input type="text" id="usuario-nome">
+        </label>
+
+        <label>E-mail: <input type="text" id="usuario-email">
+        </label>
+
+        <label>Login: <input type="text" id="usuario-login">
+        </label>
+
+        <label>Senha: <input type="text" id="usuario-senha">
+        </label>
+
+        <div class="modal-actions">
+            <button id="btn-salvar">
+                <i data-lucide="save"></i>
+            </button>
+            <button id="btn-deletar">
+                <i data-lucide="trash-2"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="usuario.js"></script>
+</body>
+
+</html>

@@ -13,9 +13,6 @@
 <body>
     <input type="text" id="campo-pesquisa" placeholder="Buscar por nome..." />
     <p id="table"></p>
-    <button id="btn-limpar">
-        <i data-lucide="eraser"></i>
-    </button>
     <table id="medicamentosTable">
         <thead>
             <tr>
@@ -24,8 +21,10 @@
                 <th>Embalagem</th>
                 <th>Saldo</th>
                 <th>Validade</th>
+                <th>Ações</th>
             </tr>
         </thead>
+
         <tbody id="medicamentosTableDados">
         </tbody>
     </table>
@@ -33,6 +32,9 @@
 
     <!--modal-->
     <div id="modal">
+        <button id="btn-limpar">
+            <i data-lucide="eraser"></i>
+        </button>
         <h3>Edite os dados do medicamento:</h3>
 
         <label>ID: <input type="text" id="medicamento-id" readonly />
@@ -49,16 +51,15 @@
 
         <label>Validade:</label>
         <input type="date" id="medicamento-validade">
-
-        <button id="btn-salvar">
-            <i data-lucide="save"></i>
-        </button>
-        <button id="btn-deletar">
-            <i data-lucide="trash2"></i>
-        </button>
-
+        <div class="modal-actions">
+            <button id="btn-salvar">
+                <i data-lucide="save"></i>
+            </button>
+            <button id="btn-deletar">
+                <i data-lucide="trash-2"></i>
+            </button>
+        </div>
     </div>
-
 
     <script src="medicamento.js"></script>
 </body>

@@ -36,38 +36,18 @@ function modalAbrirCliente(event) {
     }
 }
 
-/*function modalAbrirCurso(event) {
+function modalAbrirUsuario(event) {
     let mainWindow = getJanelaPrincipal()
     if (mainWindow) {
-        criarJanelaModal('./src/curso/curso.html', mainWindow)
+        criarJanelaModal('./src/usuario/usuario.html', mainWindow)
     } else {
         console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
     }
 }
-
-function modalAbrirMateria(event) {
-    let mainWindow = getJanelaPrincipal()
-    if (mainWindow) {
-        criarJanelaModal('./src/materia/materia.html', mainWindow)
-    } else {
-        console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
-    }
-}
-
-function modalAbrirNotas(event) {
-    let mainWindow = getJanelaPrincipal()
-    if (mainWindow) {
-        criarJanelaModal('./src/notas/notas.html', mainWindow)
-    } else {
-        console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
-    }
-}*/
 
 module.exports = {
     criarJanelaModal,
     modalAbrirMedicamento,
     modalAbrirCliente,
-    /*modalAbrirCurso,
-    modalAbrirMateria,
-    modalAbrirNotas*/
+    modalAbrirUsuario
 }
