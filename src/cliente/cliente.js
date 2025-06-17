@@ -18,8 +18,6 @@ botaoLimpar.addEventListener('click', limparCamposCliente);
 botaoSalvar.addEventListener('click', salvarCliente);
 botaoDeletar.addEventListener('click', deletarCliente);
 
-let listaCompletaDeClientes = []
-
 function limparCamposCliente() {
     mostrarDetalhes('', '', '', '', '', '', '', '', '', '');
 }
@@ -38,6 +36,7 @@ async function salvarCliente() {
 
     if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !bairro || !cidade || !uf) {
         alert('Por favor, preencha os campos obrigatórios.');
+        limparCamposCliente();
         return;
     }
     if (id === '') {
@@ -56,6 +55,8 @@ async function deletarCliente() {
         return;
     }
     await window.projetoAPI.deletarCliente(id);
+    carregarClientes();
+    limparCamposCliente();
 }
 
 function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf) {
@@ -71,9 +72,11 @@ function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_r
     modalEstadoCliente.value = uf
 }
 
+let lista = []
+
 async function carregarClientes() {
-    listaCompletaDeClientes = await window.projetoAPI.getClientes(); // salva a lista globalmente
-    mostrarClientesNaTabela(listaCompletaDeClientes); // exibe tudo na tela
+    lista = await window.projetoAPI.getClientes(); // salva a lista globalmente
+    mostrarClientesNaTabela(lista); // exibe tudo na tela
 }
 
 async function mostrarClientesNaTabela(lista) {
@@ -94,7 +97,7 @@ function pesquisa() {
     campoPesquisa.addEventListener('input', () => {
         const termo = campoPesquisa.value.toLowerCase();
 
-        const filtrados = listaCompletaDeClientes.filter(cliente =>
+        const filtrados = lista.filter(cliente =>
             cliente.nome.toLowerCase().includes(termo)
         );
         mostrarClientesNaTabela(filtrados);

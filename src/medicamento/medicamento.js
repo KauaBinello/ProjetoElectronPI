@@ -13,8 +13,6 @@ botaoLimpar.addEventListener('click', limparCamposMedicamento);
 botaoSalvar.addEventListener('click', salvarMedicamento);
 botaoDeletar.addEventListener('click', deletarMedicamento);
 
-let listaCompletaDeMedicamentos = [];
-
 function limparCamposMedicamento() {
     mostrarDetalhes('', '', '', '', '');
 }
@@ -44,6 +42,7 @@ async function deletarMedicamento() {
     await window.projetoAPI.deletarMedicamento(id);
 
     carregarMedicamentos();
+    limparCamposMedicamento();
 }
 
 function mostrarDetalhes(id, nome, embalagem, saldo, validade) {
@@ -54,9 +53,11 @@ function mostrarDetalhes(id, nome, embalagem, saldo, validade) {
     modalValidadeMedicamento.value = validade
 }
 
+let lista = [];
+
 async function carregarMedicamentos() {
-    listaCompletaDeMedicamentos = await window.projetoAPI.getMedicamentos(); // salva a lista globalmente
-    mostrarMedicamentosNaTabela(listaCompletaDeMedicamentos); // exibe tudo na tela
+    lista = await window.projetoAPI.getMedicamentos(); // salva a lista globalmente
+    mostrarMedicamentosNaTabela(lista); // exibe tudo na tela
 }
 
 function mostrarMedicamentosNaTabela(lista) {
@@ -77,7 +78,7 @@ function pesquisa() {
     campoPesquisa.addEventListener('input', () => {
         const termo = campoPesquisa.value.toLowerCase();
 
-        const filtrados = listaCompletaDeMedicamentos.filter(med =>
+        const filtrados = lista.filter(med =>
             med.nome.toLowerCase().includes(termo)
         );
 

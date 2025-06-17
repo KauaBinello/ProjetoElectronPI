@@ -5,7 +5,7 @@ async function getUsuarios() {
     return sql.rows
 }
 
-async function adicionarUsuario() {
+async function adicionarUsuario(event, nome, email, login, senha) {
     const sql = `INSERT INTO pi.usuarios(
 	nome, email, login, senha)
 	VALUES ($1, $2, $3, $4); `
@@ -13,15 +13,14 @@ async function adicionarUsuario() {
     await db.query(sql, values)
 }
 
-async function atualizarUsuario() {
+async function atualizarUsuario(event, nome, email, login, senha, id) {
     const sql = `UPDATE pi.usuarios SET nome = $1, email= $2, login= $3, senha= $4 WHERE ID = $5`
     const values = [nome, email, login, senha, id]
     await db.query(sql, values)
 }
 
-async function deletarUsuario() {
-    const sql = `DELETE FROM pi.usuarios
-	WHERE id = $1`
+async function deletarUsuario(event, id) {
+    const sql = `DELETE FROM pi.usuarios WHERE id = $1`
     const values = [id]
     await db.query(sql, values)
 }
