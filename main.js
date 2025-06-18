@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const { createMainWindow, createLoginWindow } = require('./src/janelaPrincipal');
+const { createLoginWindow } = require('./src/janelaPrincipal');
 const { registrarListeners } = require('./src/appListeners');
 
 if (process.env.NODE_ENV !== 'production') {

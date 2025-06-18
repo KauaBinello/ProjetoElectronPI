@@ -1,7 +1,7 @@
 const { ipcMain } = require('electron');
 
 const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario } = require('./janelaModal');
-const { createMainWindow } = require('./janelaPrincipal')
+const { createMainWindow, closeLoginWindow } = require('./janelaPrincipal')
 const { getMedicamentos, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
 const { getClientes, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
 const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario } = require('./usuario/usuarioDB')
@@ -29,7 +29,8 @@ function registrarUsuariosListeners() {
 }
 
 function registrarLoginListeners() {
-    ipcMain.handle('validar-login', validarLogin)
+    ipcMain.handle('validar-login', validarLogin);
+    ipcMain.handle('fechar-login', closeLoginWindow);
 }
 
 function registrarJanelas() {

@@ -46,6 +46,9 @@ async function deletarUsuario(id) {
 async function validarLogin(login, senha) {
     return ipcRenderer.invoke('validar-login', login, senha)
 }
+async function fecharLogin() {
+    return ipcRenderer.invoke('fechar-login');
+}
 
 //janelas
 function abrirMedicamento() {
@@ -78,7 +81,7 @@ contextBridge.exposeInMainWorld('projetoAPI',
         atualizarUsuario,
         deletarUsuario,
 
-        validarLogin
+        validarLogin,
     }
 )
 
@@ -87,6 +90,7 @@ contextBridge.exposeInMainWorld('janelaAPI',
         abrirMedicamento: abrirMedicamento,
         abrirCliente: abrirCliente,
         abrirUsuario: abrirUsuario,
-        createMainWindow
+        createMainWindow: createMainWindow,
+        fecharLogin: fecharLogin
     }
 );

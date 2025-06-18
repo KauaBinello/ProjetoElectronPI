@@ -11,12 +11,9 @@ async function validarLogin() {
 
     if (retorno) {
         await window.janelaAPI.createMainWindow()
-        msg.style.color = 'green'
-        msg.textContent = 'Certo'
-
-
+        await window.janelaAPI.fecharLogin()
     } else {
         msg.style.color = 'red'
-        msg.textContent = 'Erro'
+        msg.textContent = 'Login inválido ou senha incorreta!'
     }
 }

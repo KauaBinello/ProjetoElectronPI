@@ -1,4 +1,5 @@
 const { BrowserWindow } = require('electron');
+const { get } = require('http');
 const path = require('path');
 
 let janelaPrincipal;
@@ -42,9 +43,22 @@ function getJanelaLogin() {
     return janelaLogin;
 }
 
+function closeLoginWindow() {
+    if (janelaLogin) {
+        janelaLogin.close();
+        janelaLogin = null;
+    }
+}
+
+function getJanelaLogin() {
+    return janelaLogin;
+}
+
 module.exports = {
     createLoginWindow,
     createMainWindow,
     getJanelaPrincipal,
+    getJanelaLogin,
+    closeLoginWindow,
     getJanelaLogin
 }

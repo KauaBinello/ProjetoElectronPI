@@ -9,8 +9,8 @@
 
 /* Fundo com gradiente suave */
 body {
-  background: linear-gradient(135deg, #f6f9fc, #e3effa);
-  padding: 40px 20px;
+  background: linear-gradient(135deg, #f8fbff, #eaf3fc);
+  padding: 48px 24px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,10 +19,15 @@ body {
 
 /* Logo */
 #logo {
-  width: 400px;
-  margin-top: 150px;
-  margin-bottom: -0px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  width: 380px;
+  margin-top: 32px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+  transition: transform 0.3s ease;
+}
+
+#logo:hover {
+  transform: scale(1.02);
 }
 
 /* Botões principais */
@@ -30,19 +35,20 @@ button {
   background-color: #478de0;
   border: none;
   color: white;
-  padding: 14px 28px;
+  padding: 15px 30px;
   font-size: 16px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  margin: 10px 0;
+  margin: 12px 0;
   width: 100%;
   max-width: 320px;
   transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 3px 8px rgba(71, 141, 224, 0.2);
+  box-shadow: 0 4px 10px rgba(71, 141, 224, 0.15);
+  font-weight: 500;
 }
 
 button:hover {
   background-color: #3c7ac4;
-  box-shadow: 0 5px 14px rgba(60, 122, 196, 0.25);
-  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(60, 122, 196, 0.25);
+  transform: translateY(-2px);
 }
