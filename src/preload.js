@@ -57,7 +57,9 @@ function abrirCliente() {
 function abrirUsuario() {
     ipcRenderer.send('abrir-usuario')
 }
-
+function createMainWindow() {
+    ipcRenderer.send('abrir-janela-principal')
+}
 // Expondo as APIs para o contexto da janela principal
 contextBridge.exposeInMainWorld('projetoAPI',
     {
@@ -84,6 +86,7 @@ contextBridge.exposeInMainWorld('janelaAPI',
     {
         abrirMedicamento: abrirMedicamento,
         abrirCliente: abrirCliente,
-        abrirUsuario: abrirUsuario
+        abrirUsuario: abrirUsuario,
+        createMainWindow
     }
 );

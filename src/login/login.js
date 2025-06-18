@@ -10,8 +10,11 @@ async function validarLogin() {
     const retorno = await window.projetoAPI.validarLogin(login.value, senha.value)
 
     if (retorno) {
+        await window.janelaAPI.createMainWindow()
         msg.style.color = 'green'
         msg.textContent = 'Certo'
+
+
     } else {
         msg.style.color = 'red'
         msg.textContent = 'Erro'

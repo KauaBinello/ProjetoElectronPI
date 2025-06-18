@@ -6,8 +6,8 @@ let janelaLogin;
 
 function createMainWindow() {
     janelaPrincipal = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1000,
+        height: 900,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
