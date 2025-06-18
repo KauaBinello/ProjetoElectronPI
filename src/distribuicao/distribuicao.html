@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="distribuicao.css">
+</head>
+
+<body>
+    <input type="text" id="campo-pesquisa" placeholder="Buscar por cpf..." />
+    <p id="table"></p>
+    <table id="distribuicoesTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>CPF</th>
+                <th>Medicamento</th>
+                <th>Quantidade</th>
+                <th>Usuário</th>
+                <th>Data</th>
+            </tr>
+        </thead>
+        <tbody id="distribuicoesTableDados">
+        </tbody>
+    </table>
+
+    <!--modal-->
+    <div id="modal">
+        <button id="btn-limpar">
+            <i data-lucide="eraser"></i>
+        </button>
+        <h3>Histórico de Distribuições:</h3>
+        <label>Cliente: <input type='text' id='distribuicao-cliente'>
+        </label>
+        <br>
+        <label>Medicamento: <input type='text' id='distribuicao-medicamento'>
+        </label>
+        <br>
+        <label>Quantidade: <input type='number' id="distribuicao-quantidade">
+        </label>
+        <br>
+        <div class="modal-actions">
+            <button id="btn-salvar">
+                <i data-lucide="save"></i>
+            </button>
+            <button id="btn-deletar">
+                <i data-lucide="trash-2"></i>
+            </button>
+        </div>
+    </div>
+    <script src="distribuicao.js"></script>
+</body>
+
+</html>

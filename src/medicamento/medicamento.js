@@ -128,5 +128,6 @@ async function criarLinhaMedicamento(medicamento) {
 
     lucide.createIcons();
 
-} pesquisa()
+} 
 carregarMedicamentos();
+pesquisa()

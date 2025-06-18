@@ -45,9 +45,19 @@ function modalAbrirUsuario(event) {
     }
 }
 
+function modalAbrirDistribuicao(event) {
+    let mainWindow = getJanelaPrincipal()
+    if (mainWindow) {
+        criarJanelaModal('./src/distribuicao/distribuicao.html', mainWindow)
+    } else {
+        console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
+    }
+}
+
 module.exports = {
     criarJanelaModal,
     modalAbrirMedicamento,
     modalAbrirCliente,
-    modalAbrirUsuario
+    modalAbrirUsuario,
+    modalAbrirDistribuicao
 }

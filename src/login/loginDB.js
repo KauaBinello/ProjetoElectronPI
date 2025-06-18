@@ -1,14 +1,18 @@
-const db = require('../db')
+const db = require('../db');
 
 async function validarLogin(event, login, senha) {
-    const sql = await db.query(`SELECT * FROM pi.usuarios WHERE login = $1 AND senha = $2`, [login, senha])
+    const sql = await db.query(
+        `SELECT id, nome, email, login FROM pi.usuarios WHERE login = $1 AND senha = $2`,
+        [login, senha]
+    );
+
     if (sql.rows.length > 0) {
-        return true
+        return sql.rows[0]; // retorna os dados do usuário
     } else {
-        return false
+        return null; // login inválido
     }
 }
 
 module.exports = {
     validarLogin
-}
+};

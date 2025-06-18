@@ -42,6 +42,11 @@ async function deletarUsuario(id) {
     return ipcRenderer.invoke('deletar-usuario', id)
 }
 
+// Distribuição
+async function getDistribuicoes() {
+    return ipcRenderer.invoke('get-distribuicao');
+}
+
 //login
 async function validarLogin(login, senha) {
     return ipcRenderer.invoke('validar-login', login, senha)
@@ -63,6 +68,20 @@ function abrirUsuario() {
 function createMainWindow() {
     ipcRenderer.send('abrir-janela-principal')
 }
+function abrirDistribuicao() {
+    ipcRenderer.send('abrir-distribuicao');
+}
+
+//sessão
+async function setUsuarioLogado(usuario) {
+    return ipcRenderer.invoke('set-usuario-logado', usuario);
+}
+
+async function getUsuarioLogado() {
+    return ipcRenderer.invoke('get-usuario-logado');
+}
+
+
 // Expondo as APIs para o contexto da janela principal
 contextBridge.exposeInMainWorld('projetoAPI',
     {
@@ -82,6 +101,11 @@ contextBridge.exposeInMainWorld('projetoAPI',
         deletarUsuario,
 
         validarLogin,
+
+        setUsuarioLogado,
+        getUsuarioLogado,
+
+        getDistribuicoes
     }
 )
 
@@ -91,6 +115,7 @@ contextBridge.exposeInMainWorld('janelaAPI',
         abrirCliente: abrirCliente,
         abrirUsuario: abrirUsuario,
         createMainWindow: createMainWindow,
-        fecharLogin: fecharLogin
+        fecharLogin: fecharLogin,
+        abrirDistribuicao: abrirDistribuicao
     }
 );

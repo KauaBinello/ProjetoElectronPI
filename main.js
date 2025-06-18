@@ -27,3 +27,7 @@ app.whenReady().then(function () {
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
 });
+
+global.usuarioLogado = null;
+
+
