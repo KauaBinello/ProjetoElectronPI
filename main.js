@@ -1,5 +1,5 @@
 const { app, BrowserWindow } = require('electron');
-const { createMainWindow } = require('./src/janelaPrincipal');
+const { createMainWindow, createLoginWindow } = require('./src/janelaPrincipal');
 const { registrarListeners } = require('./src/appListeners');
 
 if (process.env.NODE_ENV !== 'production') {
@@ -14,11 +14,11 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.whenReady().then(function () {
 
-    createMainWindow();
-    registrarListeners()
+    createLoginWindow();
+    registrarListeners();
     app.on('activate', function () {
         if (BrowserWindow.getAllWindows().length === 0) {
-            createMainWindow();
+            createLoginWindow();
         }
     });
 }

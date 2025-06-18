@@ -1,0 +1,19 @@
+const login = document.getElementById('login')
+const senha = document.getElementById('senha')
+const btnLogin = document.getElementById('acessar')
+const msg = document.getElementById('msg')
+
+btnLogin.addEventListener('click', validarLogin)
+
+async function validarLogin() {
+
+    const retorno = await window.projetoAPI.validarLogin(login.value, senha.value)
+
+    if (retorno) {
+        msg.style.color = 'green'
+        msg.textContent = 'Certo'
+    } else {
+        msg.style.color = 'red'
+        msg.textContent = 'Erro'
+    }
+}

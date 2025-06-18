@@ -42,6 +42,11 @@ async function deletarUsuario(id) {
     return ipcRenderer.invoke('deletar-usuario', id)
 }
 
+//login
+async function validarLogin(login, senha) {
+    return ipcRenderer.invoke('validar-login', login, senha)
+}
+
 //janelas
 function abrirMedicamento() {
     ipcRenderer.send('abrir-medicamento');
@@ -56,20 +61,22 @@ function abrirUsuario() {
 // Expondo as APIs para o contexto da janela principal
 contextBridge.exposeInMainWorld('projetoAPI',
     {
-        getMedicamentos: getMedicamentos,
-        adicionarMedicamento: adicionarMedicamento,
-        atualizarMedicamento: atualizarMedicamento,
-        deletarMedicamento: deletarMedicamento,
+        getMedicamentos,
+        adicionarMedicamento,
+        atualizarMedicamento,
+        deletarMedicamento,
 
-        getClientes: getClientes,
-        adicionarCliente: adicionarCliente,
-        atualizarCliente: atualizarCliente,
-        deletarCliente: deletarCliente,
+        getClientes,
+        adicionarCliente,
+        atualizarCliente,
+        deletarCliente,
 
-        getUsuarios: getUsuarios,
-        adicionarUsuario: adicionarUsuario,
-        atualizarUsuario: atualizarUsuario,
-        deletarUsuario: deletarUsuario
+        getUsuarios,
+        adicionarUsuario,
+        atualizarUsuario,
+        deletarUsuario,
+
+        validarLogin
     }
 )
 

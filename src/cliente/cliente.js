@@ -54,7 +54,8 @@ async function deletarCliente() {
         alert('Por favor, selecione um cliente para deletar.');
         return;
     }
-    await window.projetoAPI.deletarCliente(id);
+    if (confirm('Tem certeza que deseja deletar o cliente?'))
+        await window.projetoAPI.deletarCliente(id);
     carregarClientes();
     limparCamposCliente();
 }

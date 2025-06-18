@@ -1,13 +1,13 @@
 const { BrowserWindow } = require('electron');
-const { get } = require('http');
 const path = require('path');
 
 let janelaPrincipal;
+let janelaLogin;
 
 function createMainWindow() {
     janelaPrincipal = new BrowserWindow({
-        width: 1000,
-        height: 1000,
+        width: 800,
+        height: 600,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -25,7 +25,26 @@ function getJanelaPrincipal() {
     return janelaPrincipal
 }
 
+function createLoginWindow() {
+    janelaLogin = new BrowserWindow({
+        width: 550,
+        height: 550,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
+    })
+
+    janelaLogin.loadFile('./src/login/login.html');
+
+}
+
+function getJanelaLogin() {
+    return janelaLogin;
+}
+
 module.exports = {
+    createLoginWindow,
     createMainWindow,
-    getJanelaPrincipal
+    getJanelaPrincipal,
+    getJanelaLogin
 }

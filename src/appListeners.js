@@ -3,7 +3,8 @@ const { ipcMain } = require('electron');
 const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario } = require('./janelaModal');
 const { getMedicamentos, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
 const { getClientes, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
-const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario} = require('./usuario/usuarioDB')
+const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario } = require('./usuario/usuarioDB')
+const { validarLogin } = require('./login/loginDB')
 
 function registrarMedicamentosListeners() {
     ipcMain.handle('get-medicamento', getMedicamentos);
@@ -19,11 +20,15 @@ function registrarClientesListeners() {
     ipcMain.handle('deletar-cliente', deletarCliente)
 }
 
-function registrarUsuariosListeners(){
+function registrarUsuariosListeners() {
     ipcMain.handle('get-usuario', getUsuarios);
     ipcMain.handle('adicionar-usuario', adicionarUsuario);
     ipcMain.handle('atualizar-usuario', atualizarUsuario);
     ipcMain.handle('deletar-usuario', deletarUsuario)
+}
+
+function registrarLoginListeners() {
+    ipcMain.handle('validar-login', validarLogin)
 }
 
 function registrarJanelas() {
@@ -36,6 +41,7 @@ function registrarListeners() {
     registrarMedicamentosListeners();
     registrarClientesListeners();
     registrarUsuariosListeners();
+    registrarLoginListeners();
     registrarJanelas();
 }
 
