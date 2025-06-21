@@ -7,6 +7,29 @@ const botaoSalvar = document.getElementById('btn-salvar');
 const botaoDeletar = document.getElementById('btn-deletar');
 const botaoLimpar = document.getElementById('btn-limpar');
 
+botaoSalvar = document.addEventListener(`click`, adicionarDistrivuicao)
+botaoLimpar = document.addEventListener(`click`, adicionarDistrivuicao)
+
+function limparCampos() {
+    modalNomeMedicamento = ``
+    modalQuantidade = ``
+    modalNomeCliente = ``
+}
+
+
+
+async function adicionarDistrivuicao() {
+    const medicamentoId = 1
+    const quantidade = modalQuantidade.value
+    const saida = new Date()
+    const clienteId = 1
+    const usuarioId = 1
+
+    await window.projetoAPI.adicionarDistrivuicao(medicamentoId, quantidade, saida, clienteId, usuarioId)
+    carregarDistribuicoes()
+
+}
+
 let lista = [];
 
 async function carregarDistribuicoes() {

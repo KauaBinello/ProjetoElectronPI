@@ -46,6 +46,9 @@ async function deletarUsuario(id) {
 async function getDistribuicoes() {
     return ipcRenderer.invoke('get-distribuicao');
 }
+async function adicionarDistribuicao(medicamento_id, quantidade, saida, cliente_id, usuario_id) {
+    return ipcRenderer.invoke(adicionarDistribuicao, medicamento_id, quantidade, saida, cliente_id, usuario_id)
+}
 
 //login
 async function validarLogin(login, senha) {
@@ -105,7 +108,8 @@ contextBridge.exposeInMainWorld('projetoAPI',
         setUsuarioLogado,
         getUsuarioLogado,
 
-        getDistribuicoes
+        getDistribuicoes,
+        adicionarDistribuicao
     }
 )
 
