@@ -42,7 +42,7 @@ async function deletarUsuario(id) {
     return ipcRenderer.invoke('deletar-usuario', id)
 }
 
-// Distribuição
+// distribuição
 async function getDistribuicoes() {
     return ipcRenderer.invoke('get-distribuicao');
 }

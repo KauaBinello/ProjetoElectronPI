@@ -15,7 +15,6 @@
     <table id="distribuicoesTable">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Cliente</th>
                 <th>CPF</th>
                 <th>Medicamento</th>
@@ -34,13 +33,13 @@
             <i data-lucide="eraser"></i>
         </button>
         <h3>Histórico de Distribuições:</h3>
-        <label>Cliente: <input type='text' id='distribuicao-cliente'>
+        <label>Cliente: <input type='text' id='distribuicao-cliente' placeholder='Digite o CPF do cliente'>
         </label>
         <br>
-        <label>Medicamento: <input type='text' id='distribuicao-medicamento'>
+        <label>Medicamento: <input type='text' id='distribuicao-medicamento' placeholder='Digite o nome do medicamento'>
         </label>
         <br>
-        <label>Quantidade: <input type='number' id="distribuicao-quantidade">
+        <label>Quantidade: <input type='number' id="distribuicao-quantidade" placeholder='Digite a quantidade'>
         </label>
         <br>
         <div class="modal-actions">
@@ -48,7 +47,7 @@
                 <i data-lucide="save"></i>
             </button>
             <button id="btn-deletar">
-                <i data-lucide="trash-2"></i>
+                <i data-lucide="delete"></i>
             </button>
         </div>
     </div>

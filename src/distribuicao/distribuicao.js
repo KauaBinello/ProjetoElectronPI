@@ -11,9 +11,9 @@ botaoSalvar.addEventListener(`click`, adicionarDistribuicao)
 botaoLimpar.addEventListener(`click`, limparCampos)
 
 function limparCampos() {
-    modalNomeMedicamento = ``
-    modalQuantidade = ``
-    modalCpfCliente = ``
+    modalNomeMedicamento.value = ``
+    modalQuantidade.value = ``
+    modalCpfCliente.value = ``
 }
 
 async function adicionarDistribuicao() {
@@ -35,6 +35,7 @@ async function adicionarDistribuicao() {
 
     await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
     carregarDistribuicoes()
+    limparCampos()
 
 }
 
@@ -71,10 +72,6 @@ async function pesquisa() {
 
 async function criarLinhaDistribuicao(dados) {
     const linha = document.createElement('tr')
-
-    const celulaId = document.createElement('td')
-    celulaId.textContent = dados.serial
-    linha.appendChild(celulaId)
 
     const celulaCliente = document.createElement('td')
     celulaCliente.textContent = dados.cliente_nome

@@ -90,10 +90,6 @@ function pesquisa() {
 async function criarLinhaMedicamento(medicamento) {
     const linha = document.createElement('tr');
 
-    const celulaId = document.createElement('td');
-    celulaId.textContent = medicamento.id;
-    linha.appendChild(celulaId);
-
     const celulaNome = document.createElement('td');
     celulaNome.textContent = medicamento.nome;
     linha.appendChild(celulaNome);
@@ -128,6 +124,6 @@ async function criarLinhaMedicamento(medicamento) {
 
     lucide.createIcons();
 
-} 
+}
 carregarMedicamentos();
 pesquisa()

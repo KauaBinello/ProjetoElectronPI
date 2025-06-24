@@ -109,10 +109,6 @@ async function criarLinhaCliente(cliente) {
 
     const linha = document.createElement('tr');
 
-    const celulaId = document.createElement('td');
-    celulaId.textContent = cliente.id;
-    linha.appendChild(celulaId);
-
     const celulaNome = document.createElement('td');
     celulaNome.textContent = cliente.nome;
     linha.appendChild(celulaNome);

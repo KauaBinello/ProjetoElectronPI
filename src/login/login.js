@@ -6,28 +6,33 @@ const msg = document.getElementById('msg');
 btnLogin.addEventListener('click', validarLogin);
 
 async function validarLogin() {
-    const retorno = await window.projetoAPI.validarLogin(login.value, senha.value);
-    const perfil = retorno.perfil
     try {
-        if (retorno && perfil === 'adm') {
-            await window.projetoAPI.setUsuarioLogado({
-                id: retorno.id,
-                nome: retorno.nome,
-                email: retorno.email,
-                login: retorno.login
-            });
-            await window.janelaAPI.createMainWindow();
-            await window.janelaAPI.fecharLogin();
-        } else {
-            await window.projetoAPI.setUsuarioLogado({
-                id: retorno.id,
-                nome: retorno.nome,
-                email: retorno.email,
-                login: retorno.login
-            });
-            await window.janelaAPI.createMainWindowUser();
-            await window.janelaAPI.fecharLogin();
+        const retorno = await window.projetoAPI.validarLogin(login.value, senha.value);
+
+        if (!retorno || !retorno.perfil) {
+            throw new Error('Login inválido');
         }
+
+        await window.projetoAPI.setUsuarioLogado({
+            id: retorno.id,
+            nome: retorno.nome,
+            email: retorno.email,
+            login: retorno.login
+        });
+
+        switch (retorno.perfil) {
+            case 'adm':
+                await window.janelaAPI.createMainWindow();
+                break;
+            case 'user':
+                await window.janelaAPI.createMainWindowUser();
+                break;
+            default:
+                throw new Error('Perfil não reconhecido');
+        }
+
+        await window.janelaAPI.fecharLogin();
+
     } catch {
         msg.style.color = 'red';
         msg.textContent = 'Login inválido ou senha incorreta!';

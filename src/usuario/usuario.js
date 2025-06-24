@@ -87,10 +87,6 @@ function pesquisa() {
 async function criarLinhaUsuario(usuario) {
     const linha = document.createElement('tr');
 
-    const celudaID = document.createElement('td');
-    celudaID.textContent = usuario.id;
-    linha.appendChild(celudaID);
-
     const celulaNome = document.createElement('td');
     celulaNome.textContent = usuario.nome;
     linha.appendChild(celulaNome);
