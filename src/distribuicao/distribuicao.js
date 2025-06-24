@@ -13,10 +13,8 @@ botaoLimpar.addEventListener(`click`, limparCampos)
 function limparCampos() {
     modalNomeMedicamento = ``
     modalQuantidade = ``
-    modalNomeCliente = ``
+    modalCpfCliente = ``
 }
-
-
 
 async function adicionarDistribuicao() {
     const nomeMedicamento = modalNomeMedicamento.value
@@ -32,9 +30,10 @@ async function adicionarDistribuicao() {
 
     const usuario = await window.projetoAPI.getUsuarioLogado()
     const usuarioId = usuario.id
-    console.log(medicamentoId, quantidade, saida, clienteId, usuarioId)
 
-    await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, clienteId, usuarioId)
+    console.log(medicamentoId, quantidade, saida, usuarioId, clienteId)
+
+    await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
     carregarDistribuicoes()
 
 }

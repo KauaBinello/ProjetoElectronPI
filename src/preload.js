@@ -46,8 +46,8 @@ async function deletarUsuario(id) {
 async function getDistribuicoes() {
     return ipcRenderer.invoke('get-distribuicao');
 }
-async function adicionarDistribuicao(medicamento_id, quantidade, saida, cliente_id, usuario_id) {
-    return ipcRenderer.invoke('adicionar-distribuicao', medicamento_id, quantidade, saida, cliente_id, usuario_id)
+async function adicionarDistribuicao(medicamento_id, quantidade, saida, usuarioId, cliente_id) {
+    return ipcRenderer.invoke('adicionar-distribuicao', medicamento_id, quantidade, saida, usuarioId, cliente_id)
 }
 async function verificaCliente(cpf) {
     return ipcRenderer.invoke('verifica-cliente', cpf)
@@ -132,6 +132,6 @@ contextBridge.exposeInMainWorld('janelaAPI',
         createMainWindow: createMainWindow,
         fecharLogin: fecharLogin,
         abrirDistribuicao: abrirDistribuicao,
-        createMainWindowUser:createMainWindowUser
+        createMainWindowUser: createMainWindowUser
     }
 );

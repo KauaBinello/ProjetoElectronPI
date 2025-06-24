@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "electron": "^36.4.0"
+    "electron": "^36.5.0"
   },
   "dependencies": {
     "electron-reload": "^2.0.0-alpha.1",
