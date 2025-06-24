@@ -2,7 +2,7 @@ const db = require('../db');
 
 async function validarLogin(event, login, senha) {
     const sql = await db.query(
-        `SELECT id, nome, email, login FROM pi.usuarios WHERE login = $1 AND senha = $2`,
+        `SELECT id, nome, email, login, perfil FROM pi.usuarios WHERE login = $1 AND senha = $2`,
         [login, senha]
     );
 

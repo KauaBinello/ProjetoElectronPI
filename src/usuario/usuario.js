@@ -25,7 +25,6 @@ async function salvarUsuario (){
     const email = modalEmailUsuario.value;
     const login = modalLoginUsuario.value;
     const senha = modalSenhaUsuario.value;
-    console.log(id, nome, email, login, senha);
     if (!nome || !email || !login || !senha) {
         alert('Por favor, preencha os campos obrigatórios.');
         limparCamposUsuario();

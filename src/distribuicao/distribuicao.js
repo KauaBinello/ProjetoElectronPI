@@ -1,5 +1,5 @@
 const tabelaDistribuicao = document.getElementById('distribuicoesTableDados');
-const modalNomeCliente = document.getElementById('distribuicao-cliente');
+const modalCpfCliente = document.getElementById('distribuicao-cliente');
 const modalNomeMedicamento = document.getElementById('distribuicao-medicamento');
 const modalQuantidade = document.getElementById('distribuicao-quantidade');
 
@@ -7,8 +7,8 @@ const botaoSalvar = document.getElementById('btn-salvar');
 const botaoDeletar = document.getElementById('btn-deletar');
 const botaoLimpar = document.getElementById('btn-limpar');
 
-botaoSalvar = document.addEventListener(`click`, adicionarDistrivuicao)
-botaoLimpar = document.addEventListener(`click`, adicionarDistrivuicao)
+botaoSalvar.addEventListener(`click`, adicionarDistribuicao)
+botaoLimpar.addEventListener(`click`, limparCampos)
 
 function limparCampos() {
     modalNomeMedicamento = ``
@@ -18,14 +18,23 @@ function limparCampos() {
 
 
 
-async function adicionarDistrivuicao() {
-    const medicamentoId = 1
+async function adicionarDistribuicao() {
+    const nomeMedicamento = modalNomeMedicamento.value
+    const medicamento = await window.projetoAPI.verificaMedicamento(nomeMedicamento)
+    const medicamentoId = medicamento.id
+
     const quantidade = modalQuantidade.value
     const saida = new Date()
-    const clienteId = 1
-    const usuarioId = 1
 
-    await window.projetoAPI.adicionarDistrivuicao(medicamentoId, quantidade, saida, clienteId, usuarioId)
+    const cpfCliente = modalCpfCliente.value
+    const cliente = await window.projetoAPI.verificaCliente(cpfCliente)
+    const clienteId = cliente.id
+
+    const usuario = await window.projetoAPI.getUsuarioLogado()
+    const usuarioId = usuario.id
+    console.log(medicamentoId, quantidade, saida, clienteId, usuarioId)
+
+    await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, clienteId, usuarioId)
     carregarDistribuicoes()
 
 }
@@ -34,7 +43,6 @@ let lista = [];
 
 async function carregarDistribuicoes() {
     lista = await window.projetoAPI.getDistribuicoes();
-    console.log(lista); // salva a lista globalmente
     mostrarDistribuicoesNaTabela(lista); // exibe tudo na tela
 }
 

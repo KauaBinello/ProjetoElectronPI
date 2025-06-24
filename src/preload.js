@@ -47,7 +47,13 @@ async function getDistribuicoes() {
     return ipcRenderer.invoke('get-distribuicao');
 }
 async function adicionarDistribuicao(medicamento_id, quantidade, saida, cliente_id, usuario_id) {
-    return ipcRenderer.invoke(adicionarDistribuicao, medicamento_id, quantidade, saida, cliente_id, usuario_id)
+    return ipcRenderer.invoke('adicionar-distribuicao', medicamento_id, quantidade, saida, cliente_id, usuario_id)
+}
+async function verificaCliente(cpf) {
+    return ipcRenderer.invoke('verifica-cliente', cpf)
+}
+async function verificaMedicamento(nome) {
+    return ipcRenderer.invoke('verifica-medicamento', nome)
 }
 
 //login
@@ -73,6 +79,9 @@ function createMainWindow() {
 }
 function abrirDistribuicao() {
     ipcRenderer.send('abrir-distribuicao');
+}
+function createMainWindowUser() {
+    ipcRenderer.send('abrir-janela-user')
 }
 
 //sessão
@@ -109,7 +118,9 @@ contextBridge.exposeInMainWorld('projetoAPI',
         getUsuarioLogado,
 
         getDistribuicoes,
-        adicionarDistribuicao
+        adicionarDistribuicao,
+        verificaCliente,
+        verificaMedicamento
     }
 )
 
@@ -120,6 +131,7 @@ contextBridge.exposeInMainWorld('janelaAPI',
         abrirUsuario: abrirUsuario,
         createMainWindow: createMainWindow,
         fecharLogin: fecharLogin,
-        abrirDistribuicao: abrirDistribuicao
+        abrirDistribuicao: abrirDistribuicao,
+        createMainWindowUser:createMainWindowUser
     }
 );

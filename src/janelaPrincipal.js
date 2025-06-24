@@ -5,6 +5,7 @@ const path = require('path');
 let janelaPrincipal;
 let janelaLogin;
 
+//WindowAdmin
 function createMainWindow() {
     janelaPrincipal = new BrowserWindow({
         width: 1000,
@@ -26,6 +27,29 @@ function getJanelaPrincipal() {
     return janelaPrincipal
 }
 
+//WindowsUser
+function createMainWindowUser() {
+    janelaPrincipal = new BrowserWindow({
+        width: 1000,
+        height: 900,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js')
+        }
+    });
+
+    janelaPrincipal.loadFile('./src/indexUser.html');
+    janelaPrincipal.on('closed', () => {
+        janelaPrincipal = null
+    })
+
+    return janelaPrincipal;
+}
+
+function getJanelaPrincipalUser() {
+    return janelaPrincipal
+}
+
+//login
 function createLoginWindow() {
     janelaLogin = new BrowserWindow({
         width: 550,
@@ -60,5 +84,7 @@ module.exports = {
     getJanelaPrincipal,
     getJanelaLogin,
     closeLoginWindow,
-    getJanelaLogin
+    getJanelaLogin,
+    createMainWindowUser,
+    getJanelaPrincipalUser
 }
