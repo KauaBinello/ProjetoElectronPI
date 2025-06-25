@@ -10,6 +10,9 @@ const botaoLimpar = document.getElementById('btn-limpar');
 botaoSalvar.addEventListener(`click`, adicionarDistribuicao)
 botaoLimpar.addEventListener(`click`, limparCampos)
 
+const idLocalUser = localStorage.getItem('id')
+const perfilLocalUser = localStorage.getItem('perfil')
+
 function limparCampos() {
     modalNomeMedicamento.value = ``
     modalQuantidade.value = ``
@@ -52,8 +55,7 @@ async function adicionarDistribuicao() {
     const medicamentoId = medicamento.id
     const saida = new Date()
 
-    const usuario = await window.projetoAPI.getUsuarioLogado()
-    const usuarioId = usuario.id
+    const usuarioId = idLocalUser
 
     await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
     carregarDistribuicoes()
