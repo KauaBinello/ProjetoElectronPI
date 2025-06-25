@@ -49,11 +49,11 @@ async function getDistribuicoes() {
 async function adicionarDistribuicao(medicamento_id, quantidade, saida, usuarioId, cliente_id) {
     return ipcRenderer.invoke('adicionar-distribuicao', medicamento_id, quantidade, saida, usuarioId, cliente_id)
 }
-async function verificaCliente(cpf) {
-    return ipcRenderer.invoke('verifica-cliente', cpf)
+async function validaCliente(cpf) {
+    return ipcRenderer.invoke('valida-cliente', cpf)
 }
-async function verificaMedicamento(nome) {
-    return ipcRenderer.invoke('verifica-medicamento', nome)
+async function validaMedicamento(nome) {
+    return ipcRenderer.invoke('valida-medicamento', nome)
 }
 
 //login
@@ -93,6 +93,14 @@ async function getUsuarioLogado() {
     return ipcRenderer.invoke('get-usuario-logado');
 }
 
+//caixas de dialogo
+function alertar(mensagem) {
+    return ipcRenderer.invoke('mostrar-alerta', mensagem);
+}
+
+function confirmar(mensagem) {
+    return ipcRenderer.invoke('mostrar-confirm', mensagem);
+}
 // Expondo as APIs para o contexto da janela principal
 contextBridge.exposeInMainWorld('projetoAPI',
     {
@@ -118,10 +126,14 @@ contextBridge.exposeInMainWorld('projetoAPI',
 
         getDistribuicoes,
         adicionarDistribuicao,
-        verificaCliente,
-        verificaMedicamento
+        validaCliente,
+        validaMedicamento,
     }
 )
+
+contextBridge.exposeInMainWorld('dialogAPI',
+    { alertar, confirmar }
+);
 
 contextBridge.exposeInMainWorld('janelaAPI',
     {

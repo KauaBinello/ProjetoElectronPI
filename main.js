@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const { createLoginWindow } = require('./src/janelaPrincipal');
 const { registrarListeners } = require('./src/appListeners');
 
@@ -29,5 +29,3 @@ app.on('window-all-closed', function () {
 });
 
 global.usuarioLogado = null;
-
-

@@ -20,21 +20,6 @@ JOIN pi.usuarios ON distribuicoes.usuario_id = usuarios.id`);
     return result.rows;
 }
 
-async function verificaCliente(event, cpf) {
-    const sql = `SELECT id FROM pi.clientes WHERE cpf = $1`
-    const values = [cpf]
-    const result = await db.query(sql, values)
-    return result.rows[0];
-}
-
-async function verificaMedicamento(event, nome) {
-    const sql = `SELECT id FROM pi.medicamentos WHERE nome = $1`
-    const values = [nome]
-    const result = await db.query(sql, values)
-    return result.rows[0];
-}
-
-
 async function adicionarDistribuicao(event, medicamento_id, quantidade, saida, usuario_id, cliente_id) {
     const sql = `INSERT INTO pi.distribuicoes (medicamento_id, quantidade, saida, usuario_id, cliente_id)
     VALUES ($1, $2, $3, $4, $5)`
@@ -48,6 +33,4 @@ async function adicionarDistribuicao(event, medicamento_id, quantidade, saida, u
 module.exports = {
     getDistribuicoes,
     adicionarDistribuicao,
-    verificaCliente,
-    verificaMedicamento
 }

@@ -1,4 +1,4 @@
-const { ipcMain } = require('electron');
+const { ipcMain, dialog, BrowserWindow } = require('electron');
 
 const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario, modalAbrirDistribuicao } = require('./janelaModal');
 const { createMainWindow, closeLoginWindow, createMainWindowUser } = require('./janelaPrincipal')
@@ -6,9 +6,10 @@ const { createMainWindow, closeLoginWindow, createMainWindowUser } = require('./
 const { getMedicamentos, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
 const { getClientes, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
 const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario } = require('./usuario/usuarioDB')
-const { getDistribuicoes, adicionarDistribuicao, verificaCliente, verificaMedicamento } = require('./distribuicao/distribuicaoDB')
+const { getDistribuicoes, adicionarDistribuicao } = require('./distribuicao/distribuicaoDB')
 
 const { validarLogin } = require('./login/loginDB')
+const { validaCliente, validaMedicamento } = require('./validacoes/validacoesDB')
 
 function registrarMedicamentosListeners() {
     ipcMain.handle('get-medicamento', getMedicamentos);
@@ -34,8 +35,6 @@ function registrarUsuariosListeners() {
 function registrarDistribuicoesListeners() {
     ipcMain.handle('get-distribuicao', getDistribuicoes);
     ipcMain.handle(`adicionar-distribuicao`, adicionarDistribuicao);
-    ipcMain.handle('verifica-cliente', verificaCliente);
-    ipcMain.handle('verifica-medicamento', verificaMedicamento);
 }
 
 function registrarLoginListeners() {
@@ -52,6 +51,11 @@ function registrarJanelas() {
     ipcMain.on('abrir-janela-user', createMainWindowUser)
 }
 
+function registrarValidacoes() {
+    ipcMain.handle('valida-cliente', validaCliente);
+    ipcMain.handle('valida-medicamento', validaMedicamento);
+}
+
 function registrarSessaoListeners() {
     ipcMain.handle('set-usuario-logado', (event, usuario) => {
         global.usuarioLogado = usuario;
@@ -62,6 +66,34 @@ function registrarSessaoListeners() {
     });
 }
 
+function registrarMostrarAlerta() {
+    if (!ipcMain.eventNames().includes('mostrar-alerta')) {
+        ipcMain.handle('mostrar-alerta', async (event, mensagem) => {
+            const win = BrowserWindow.getFocusedWindow();
+            await dialog.showMessageBox(win, {
+                type: 'info',
+                message: mensagem,
+                buttons: ['OK']
+            });
+        });
+    }
+}
+
+function registrarMostrarConfirm() {
+    if (!ipcMain.eventNames().includes('mostrar-confirm')) {
+        ipcMain.handle('mostrar-confirm', async (event, mensagem) => {
+            const win = BrowserWindow.getFocusedWindow();
+            const result = await dialog.showMessageBox(win, {
+                type: 'question',
+                message: mensagem,
+                buttons: ['Sim', 'Não'],
+                cancelId: 1
+            });
+            return result.response === 0;
+        });
+    }
+}
+
 function registrarListeners() {
     registrarMedicamentosListeners();
     registrarClientesListeners();
@@ -70,6 +102,9 @@ function registrarListeners() {
     registrarJanelas();
     registrarSessaoListeners();
     registrarDistribuicoesListeners();
+    registrarMostrarAlerta();
+    registrarMostrarConfirm();
+    registrarValidacoes();
 }
 
 module.exports = {

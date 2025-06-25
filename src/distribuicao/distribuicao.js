@@ -17,16 +17,40 @@ function limparCampos() {
 }
 
 async function adicionarDistribuicao() {
-    const nomeMedicamento = modalNomeMedicamento.value
-    const medicamento = await window.projetoAPI.verificaMedicamento(nomeMedicamento)
-    const medicamentoId = medicamento.id
-
-    const quantidade = modalQuantidade.value
-    const saida = new Date()
-
     const cpfCliente = modalCpfCliente.value
-    const cliente = await window.projetoAPI.verificaCliente(cpfCliente)
+    const cliente = await window.projetoAPI.validaCliente(cpfCliente)
+    if (!cliente) {
+        await window.dialogAPI.alertar('Cliente não encontrado. Verifique o CPF e tente novamente.');
+        return;
+    }
     const clienteId = cliente.id
+
+    const nomeMedicamento = modalNomeMedicamento.value
+    const medicamento = await window.projetoAPI.validaMedicamento(nomeMedicamento)
+
+    if (!medicamento) {
+        await window.dialogAPI.alertar('Medicamento não encontrado. Verifique o nome e tente novamente.');
+        return;
+    }
+
+    const quantidade = parseInt(modalQuantidade.value)
+    const saldo = parseInt(medicamento.saldo)
+
+    if (isNaN(quantidade) || quantidade <= 0) {
+        await window.dialogAPI.alertar('Quantidade deve ser maior que zero.');
+        return;
+    }
+    if (saldo <= 0) {
+        await window.dialogAPI.alertar('Medicamento sem estoque disponível.');
+        return;
+    }
+    if (quantidade > saldo) {
+        await window.dialogAPI.alertar(`Quantidade solicitada (${quantidade}) é maior que o estoque disponível (${saldo}).`);
+        return;
+    }
+
+    const medicamentoId = medicamento.id
+    const saida = new Date()
 
     const usuario = await window.projetoAPI.getUsuarioLogado()
     const usuarioId = usuario.id
@@ -34,7 +58,6 @@ async function adicionarDistribuicao() {
     await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
     carregarDistribuicoes()
     limparCampos()
-
 }
 
 let lista = [];
