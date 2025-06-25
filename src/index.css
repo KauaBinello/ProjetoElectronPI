@@ -20,7 +20,7 @@ body {
 /* Logo */
 #logo {
   width: 380px;
-  margin-top: 32px;
+  margin-top: 22px;
   margin-bottom: 12px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
   transition: transform 0.3s ease;
@@ -51,4 +51,28 @@ button:hover {
   background-color: #3c7ac4;
   box-shadow: 0 6px 16px rgba(60, 122, 196, 0.25);
   transform: translateY(-2px);
+}
+
+#perfil {
+  background-color: white;
+  border-left: 6px solid #478de0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 320px;
+  width: 100%;
+  text-align: left;
+  transition: transform 0.2s ease;
+}
+
+#perfil:hover {
+  transform: scale(1.01);
+}
+
+#perfil p {
+  margin: 6px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #2a3b4c;
 }

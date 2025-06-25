@@ -13,29 +13,24 @@ async function validarLogin() {
             throw new Error('Login inválido');
         }
 
-        await window.projetoAPI.setUsuarioLogado({
-            id: retorno.id,
-            nome: retorno.nome,
-            email: retorno.email,
-            login: retorno.login
-        });
-
         switch (retorno.perfil) {
-            case 'adm':
+            case 'Administrador':
                 localStorage.setItem('perfil', retorno.perfil)
                 localStorage.setItem('id', retorno.id)
+                localStorage.setItem('nomeUsuario', retorno.nome);
                 await window.janelaAPI.createMainWindow();
                 break;
-            case 'user':
+            case 'Usuário':
                 localStorage.setItem('perfil', retorno.perfil)
                 localStorage.setItem('id', retorno.id)
+                localStorage.setItem('nomeUsuario', retorno.nome);
                 await window.janelaAPI.createMainWindowUser();
                 break;
             default:
                 throw new Error('Perfil não reconhecido');
         }
 
-       await window.janelaAPI.fecharLogin();
+        await window.janelaAPI.fecharLogin();
 
     } catch {
         msg.style.color = 'red';
