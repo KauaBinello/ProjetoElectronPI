@@ -56,16 +56,6 @@ function registrarValidacoes() {
     ipcMain.handle('valida-medicamento', validaMedicamento);
 }
 
-function registrarSessaoListeners() {
-    ipcMain.handle('set-usuario-logado', (event, usuario) => {
-        global.usuarioLogado = usuario;
-    });
-
-    ipcMain.handle('get-usuario-logado', () => {
-        return global.usuarioLogado;
-    });
-}
-
 function registrarMostrarAlerta() {
     if (!ipcMain.eventNames().includes('mostrar-alerta')) {
         ipcMain.handle('mostrar-alerta', async (event, mensagem) => {
