@@ -90,7 +90,6 @@ function registrarListeners() {
     registrarUsuariosListeners();
     registrarLoginListeners();
     registrarJanelas();
-    registrarSessaoListeners();
     registrarDistribuicoesListeners();
     registrarMostrarAlerta();
     registrarMostrarConfirm();
