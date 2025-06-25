@@ -84,15 +84,6 @@ function createMainWindowUser() {
     ipcRenderer.send('abrir-janela-user')
 }
 
-//sessão
-async function setUsuarioLogado(usuario) {
-    return ipcRenderer.invoke('set-usuario-logado', usuario);
-}
-
-async function getUsuarioLogado() {
-    return ipcRenderer.invoke('get-usuario-logado');
-}
-
 //caixas de dialogo
 function alertar(mensagem) {
     return ipcRenderer.invoke('mostrar-alerta', mensagem);
@@ -120,9 +111,6 @@ contextBridge.exposeInMainWorld('projetoAPI',
         deletarUsuario,
 
         validarLogin,
-
-        setUsuarioLogado,
-        getUsuarioLogado,
 
         getDistribuicoes,
         adicionarDistribuicao,
