@@ -31,8 +31,6 @@ async function adicionarDistribuicao() {
     const usuario = await window.projetoAPI.getUsuarioLogado()
     const usuarioId = usuario.id
 
-    console.log(medicamentoId, quantidade, saida, usuarioId, clienteId)
-
     await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
     carregarDistribuicoes()
     limparCampos()

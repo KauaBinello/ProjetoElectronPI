@@ -32,11 +32,11 @@ async function deletarCliente(id) {
 async function getUsuarios() {
     return ipcRenderer.invoke('get-usuario')
 }
-async function adicionarUsuario(nome, email, login, senha) {
-    return ipcRenderer.invoke('adicionar-usuario', nome, email, login, senha)
+async function adicionarUsuario(nome, email, login, senha, perfil) {
+    return ipcRenderer.invoke('adicionar-usuario', nome, email, login, senha, perfil)
 }
-async function atualizarUsuario(nome, email, login, senha, id) {
-    return ipcRenderer.invoke('atualizar-usuario', nome, email, login, senha, id)
+async function atualizarUsuario(nome, email, login, senha, perfil, id) {
+    return ipcRenderer.invoke('atualizar-usuario', nome, email, login, senha, perfil, id)
 }
 async function deletarUsuario(id) {
     return ipcRenderer.invoke('deletar-usuario', id)
@@ -92,7 +92,6 @@ async function setUsuarioLogado(usuario) {
 async function getUsuarioLogado() {
     return ipcRenderer.invoke('get-usuario-logado');
 }
-
 
 // Expondo as APIs para o contexto da janela principal
 contextBridge.exposeInMainWorld('projetoAPI',

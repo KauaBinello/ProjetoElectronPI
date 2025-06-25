@@ -31,7 +31,7 @@ async function validarLogin() {
                 throw new Error('Perfil não reconhecido');
         }
 
-        await window.janelaAPI.fecharLogin();
+       await window.janelaAPI.fecharLogin();
 
     } catch {
         msg.style.color = 'red';

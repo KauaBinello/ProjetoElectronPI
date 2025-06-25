@@ -62,7 +62,6 @@ function registrarSessaoListeners() {
     });
 }
 
-
 function registrarListeners() {
     registrarMedicamentosListeners();
     registrarClientesListeners();

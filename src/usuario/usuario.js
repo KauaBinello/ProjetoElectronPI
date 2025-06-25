@@ -4,6 +4,7 @@ const modalNomeUsuario = document.getElementById('usuario-nome');
 const modalEmailUsuario = document.getElementById('usuario-email');
 const modalLoginUsuario = document.getElementById('usuario-login');
 const modalSenhaUsuario = document.getElementById('usuario-senha');
+const modalPerfilUsuario = document.getElementById('usuario-perfil')
 
 const botaoSalvar = document.getElementById('btn-salvar');
 const botaoDeletar = document.getElementById('btn-deletar');
@@ -16,24 +17,23 @@ botaoDeletar.addEventListener('click', deletarUsuario);
 let lista = [];
 
 function limparCamposUsuario() {
-    mostrarDetalhes('', '', '', '', '')
+    mostrarDetalhes('', '', '', '', '', '')
 }
 
-async function salvarUsuario (){
+async function salvarUsuario() {
     const id = modalIdUsuario.value;
     const nome = modalNomeUsuario.value;
     const email = modalEmailUsuario.value;
     const login = modalLoginUsuario.value;
     const senha = modalSenhaUsuario.value;
-    if (!nome || !email || !login || !senha) {
-        alert('Por favor, preencha os campos obrigatórios.');
-        limparCamposUsuario();
-        return;
+    const perfil = modalPerfilUsuario.value
+    if(!id || !nome || !email || !login || !senha || !perfil) {
+        alert('Por favor! preencha todos os campos')
     }
     if (id === '') {
-        await window.projetoAPI.adicionarUsuario(nome, email, login, senha);
+        await window.projetoAPI.adicionarUsuario(nome, email, login, senha, perfil);
     } else {
-        await window.projetoAPI.atualizarUsuario(nome, email, login, senha, id);
+        await window.projetoAPI.atualizarUsuario(nome, email, login, senha, perfil, id);
     }
     carregarUsuarios();
     limparCamposUsuario();
@@ -47,12 +47,13 @@ async function deletarUsuario() {
     limparCamposUsuario();
 }
 
-function mostrarDetalhes(id, nome, email, login, senha) {
+function mostrarDetalhes(id, nome, email, login, senha, perfil) {
     modalIdUsuario.value = id;
     modalNomeUsuario.value = nome
     modalEmailUsuario.value = email;
     modalLoginUsuario.value = login;
     modalSenhaUsuario.value = senha;
+    modalPerfilUsuario.value = perfil;
 }
 
 async function carregarUsuarios() {
@@ -103,12 +104,16 @@ async function criarLinhaUsuario(usuario) {
     celulaSenha.textContent = usuario.senha;
     linha.appendChild(celulaSenha);
 
+    const celulaPerfil = document.createElement('td');
+    celulaPerfil.textContent = usuario.perfil;
+    linha.appendChild(celulaPerfil);
+
     const celulaBotao = document.createElement('td')
 
     const botao = document.createElement('button')
     botao.addEventListener('click',
         function () {
-            mostrarDetalhes(usuario.id, usuario.nome, usuario.email, usuario.login, usuario.senha)
+            mostrarDetalhes(usuario.id, usuario.nome, usuario.email, usuario.login, usuario.senha, usuario.perfil)
         }
     )
 
