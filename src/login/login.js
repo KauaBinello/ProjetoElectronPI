@@ -22,9 +22,13 @@ async function validarLogin() {
 
         switch (retorno.perfil) {
             case 'adm':
+                localStorage.setItem('perfil', retorno.perfil)
+                localStorage.setItem('id', retorno.id)
                 await window.janelaAPI.createMainWindow();
                 break;
             case 'user':
+                localStorage.setItem('perfil', retorno.perfil)
+                localStorage.setItem('id', retorno.id)
                 await window.janelaAPI.createMainWindowUser();
                 break;
             default:
