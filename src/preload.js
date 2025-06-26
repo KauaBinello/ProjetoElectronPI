@@ -88,7 +88,6 @@ function createMainWindowUser() {
 function alertar(mensagem) {
     return ipcRenderer.invoke('mostrar-alerta', mensagem);
 }
-
 function confirmar(mensagem) {
     return ipcRenderer.invoke('mostrar-confirm', mensagem);
 }

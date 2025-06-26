@@ -11,6 +11,8 @@ const { getDistribuicoes, adicionarDistribuicao } = require('./distribuicao/dist
 const { validarLogin } = require('./login/loginDB')
 const { validaCliente, validaMedicamento } = require('./validacoes/validacoesDB')
 
+const { mostrarAlerta, mostrarConfirm } = require('./dialogs/dialogs')
+
 function registrarMedicamentosListeners() {
     ipcMain.handle('get-medicamento', getMedicamentos);
     ipcMain.handle('adicionar-medicamento', adicionarMedicamento);
@@ -56,32 +58,9 @@ function registrarValidacoes() {
     ipcMain.handle('valida-medicamento', validaMedicamento);
 }
 
-function registrarMostrarAlerta() {
-    if (!ipcMain.eventNames().includes('mostrar-alerta')) {
-        ipcMain.handle('mostrar-alerta', async (event, mensagem) => {
-            const win = BrowserWindow.getFocusedWindow();
-            await dialog.showMessageBox(win, {
-                type: 'info',
-                message: mensagem,
-                buttons: ['OK']
-            });
-        });
-    }
-}
-
-function registrarMostrarConfirm() {
-    if (!ipcMain.eventNames().includes('mostrar-confirm')) {
-        ipcMain.handle('mostrar-confirm', async (event, mensagem) => {
-            const win = BrowserWindow.getFocusedWindow();
-            const result = await dialog.showMessageBox(win, {
-                type: 'question',
-                message: mensagem,
-                buttons: ['Sim', 'Não'],
-                cancelId: 1
-            });
-            return result.response === 0;
-        });
-    }
+function registrarDialogs() {
+    ipcMain.handle('mostrar-alerta', mostrarAlerta)
+    ipcMain.handle('mostrar-confirm', mostrarConfirm)
 }
 
 function registrarListeners() {
@@ -91,8 +70,7 @@ function registrarListeners() {
     registrarLoginListeners();
     registrarJanelas();
     registrarDistribuicoesListeners();
-    registrarMostrarAlerta();
-    registrarMostrarConfirm();
+    registrarDialogs();
     registrarValidacoes();
 }
 
