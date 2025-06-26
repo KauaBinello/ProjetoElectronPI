@@ -33,8 +33,7 @@ async function validarLogin() {
         await window.janelaAPI.fecharLogin();
 
     } catch {
-        msg.style.color = 'red';
-        msg.textContent = 'Login inválido ou senha incorreta!';
+        await window.dialogAPI.alertar('Login inválido ou senha incorreta!')
     }
 }
 

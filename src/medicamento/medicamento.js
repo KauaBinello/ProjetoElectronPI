@@ -24,7 +24,7 @@ async function salvarMedicamento() {
     const saldo = modalSaldoMedicamento.value;
     const validade = modalValidadeMedicamento.value;
     if (!nome || !embalagem || !saldo || !validade) {
-        alert('Por favor. preencha os campos obrigatórios.');
+        await window.dialogAPI.alertar('Por favor. preencha os campos.');
         return;
     }
     if (id === '') {
@@ -38,9 +38,9 @@ async function salvarMedicamento() {
 
 async function deletarMedicamento() {
     const id = modalIdMedicamento.value;
-
-    await window.projetoAPI.deletarMedicamento(id);
-
+    if (await window.dialogAPI.confirmar('Tem certeza que deseja excluir o medicamento?')) {
+        await window.projetoAPI.deletarMedicamento(id);
+    }
     carregarMedicamentos();
     limparCamposMedicamento();
 }

@@ -7,7 +7,7 @@ async function getUsuarios() {
 
 async function adicionarUsuario(event, nome, email, login, senha, perfil) {
     const sql = `INSERT INTO pi.usuarios(
-	nome, email, login, senha)
+	nome, email, login, senha, perfil)
 	VALUES ($1, $2, $3, $4, $5); `
     const values = [nome, email, login, senha, perfil]
     await db.query(sql, values)

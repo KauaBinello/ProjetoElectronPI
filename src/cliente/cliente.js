@@ -35,7 +35,7 @@ async function salvarCliente() {
     const uf = modalEstadoCliente.value;
 
     if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !bairro || !cidade || !uf) {
-        alert('Por favor, preencha os campos obrigatórios.');
+        await window.dialogAPI.alertar('Por favor, preencha os campos obrigatórios.');
         limparCamposCliente();
         return;
     }
@@ -51,10 +51,10 @@ async function salvarCliente() {
 async function deletarCliente() {
     const id = modalIdcliente.value;
     if (!id) {
-        alert('Por favor, selecione um cliente para deletar.');
+        await window.dialogAPI.alertar('Por favor, selecione um cliente para deletar.');
         return;
     }
-    if (confirm('Tem certeza que deseja deletar o cliente?'))
+    if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o cliente?'))
         await window.projetoAPI.deletarCliente(id);
     carregarClientes();
     limparCamposCliente();

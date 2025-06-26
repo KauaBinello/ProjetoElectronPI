@@ -27,8 +27,8 @@ async function salvarUsuario() {
     const login = modalLoginUsuario.value;
     const senha = modalSenhaUsuario.value;
     const perfil = modalPerfilUsuario.value
-    if(!id || !nome || !email || !login || !senha || !perfil) {
-        alert('Por favor! preencha todos os campos')
+    if (!id || !nome || !email || !login || !senha || !perfil) {
+        await window.dialogAPI.alertar('Por favor! preencha todos os campos')
     }
     if (id === '') {
         await window.projetoAPI.adicionarUsuario(nome, email, login, senha, perfil);
@@ -41,8 +41,9 @@ async function salvarUsuario() {
 
 async function deletarUsuario() {
     const id = modalIdUsuario.value;
-
-    await window.projetoAPI.deletarUsuario(id);
+    if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o usuário?')) {
+        await window.projetoAPI.deletarUsuario(id);
+    }
     carregarUsuarios();
     limparCamposUsuario();
 }
