@@ -23,14 +23,31 @@ async function salvarMedicamento() {
     const embalagem = modalEmbalagemMedicamento.value;
     const saldo = modalSaldoMedicamento.value;
     const validade = modalValidadeMedicamento.value;
+
+    const medicamentoExiste = await window.projetoAPI.validaMedicamento(nome);
+
     if (!nome || !embalagem || !saldo || !validade) {
         await window.dialogAPI.alertar('Por favor. preencha os campos.');
         return;
     }
+    if (medicamentoExiste) {
+        await window.dialogAPI.alertar('Medicamento já cadastrado.');
+        return;
+    }
+    if (parseInt(saldo) <= 0) {
+        await window.dialogAPI.alertar('Saldo deve ser maior que zero.');
+        return;
+    }
+    if (new Date(validade) < new Date()) {
+        await window.dialogAPI.alertar('Data de validade deve ser futura.');
+        return;
+    }
     if (id === '') {
         await window.projetoAPI.adicionarMedicamento(nome, embalagem, saldo, validade);
+        await window.dialogAPI.alertar('Medicamento cadastrado com sucesso');
     } else {
         await window.projetoAPI.atualizarMedicamento(nome, embalagem, saldo, validade, id);
+        await window.dialogAPI.alertar('Medicamento atualizado com sucesso');
     }
     carregarMedicamentos();
     limparCamposMedicamento();
@@ -38,8 +55,13 @@ async function salvarMedicamento() {
 
 async function deletarMedicamento() {
     const id = modalIdMedicamento.value;
+    if (id === '') {
+        await window.dialogAPI.alertar('Selecione um medicamento para excluir.');
+        return;
+    }
     if (await window.dialogAPI.confirmar('Tem certeza que deseja excluir o medicamento?')) {
         await window.projetoAPI.deletarMedicamento(id);
+        await window.dialogAPI.alertar('Medicamento excluído com sucesso');
     }
     carregarMedicamentos();
     limparCamposMedicamento();

@@ -7,9 +7,16 @@ async function validaCliente(event, cpf) {
     return result.rows[0];
 }
 
+async function validaTelefone(event, telefone) {
+    const sql = `SELECT id FROM pi.clientes WHERE telefone = $1`
+    const values = [telefone]
+    const result = await db.query(sql, values)
+    return result.rows[0];
+}
+
 async function validaMedicamento(event, nome) {
     const sql = await db.query(`
-        SELECT *
+        SELECT id
         FROM pi.medicamentos
         WHERE TRIM(nome) ILIKE TRIM($1)
     `, [nome])
@@ -21,7 +28,24 @@ async function validaMedicamento(event, nome) {
     }
 }
 
-module.exports = {
-    validaCliente,
-    validaMedicamento,
+async function validaUsuario(event, login) {
+    const sql = `SELECT id FROM pi.usuarios WHERE login = $1`
+    const values = [login]
+    const result = await db.query(sql, values)
+    return result.rows[0];
 }
+
+async function validaEmail(event, email) {
+    const sql = `SELECT id FROM pi.usuarios WHERE email = $1`
+    const values = [email]
+    const result = await db.query(sql, values)
+    return result.rows[0];
+}
+
+    module.exports = {
+        validaCliente,
+        validaMedicamento,
+        validaTelefone,
+        validaEmail,
+        validaUsuario
+    }

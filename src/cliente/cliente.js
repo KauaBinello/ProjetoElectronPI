@@ -30,19 +30,36 @@ async function salvarCliente() {
     const nascimento = modalNascimentoCliente.value;
     const endereco = modalEnderecoCliente.value;
     const numero_residencial = modalNumeroResidencialCliente.value;
-    const bairro = modalBairroCliente.value
+    const bairro = modalBairroCliente.value;
     const cidade = modalCidadeCliente.value;
     const uf = modalEstadoCliente.value;
+
+    const cpfExiste = await window.projetoAPI.validaCliente(cpf)
+    const telefoneExiste = await window.projetoAPI.validaTelefone(telefone)
 
     if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !bairro || !cidade || !uf) {
         await window.dialogAPI.alertar('Por favor, preencha os campos obrigatórios.');
         limparCamposCliente();
         return;
     }
+    if (cpfExiste) {
+        await window.dialogAPI.alertar('Cliente com este CPF já cadastrado.')
+        return;
+    }
+    if (telefoneExiste) {
+        await window.dialogAPI.alertar('Cliente com este telefone já cadastrado.')
+        return;
+    }
+    if (new Date(nascimento) >= new Date()) {
+        await window.dialogAPI.alertar('Data de nascimento deve ser anterior a hoje.');
+        return;
+    }
     if (id === '') {
         await window.projetoAPI.adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf.toUpperCase());
+        await window.dialogAPI.alertar('Cliente cadastrado com sucesso')
     } else {
         await window.projetoAPI.atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id.toUpperCase());
+        await window.dialogAPI.alertar('Cliente atualizado com sucesso')
     }
     carregarClientes();
     limparCamposCliente();
@@ -51,11 +68,13 @@ async function salvarCliente() {
 async function deletarCliente() {
     const id = modalIdcliente.value;
     if (!id) {
-        await window.dialogAPI.alertar('Por favor, selecione um cliente para deletar.');
+        await window.dialogAPI.alertar('Por favor, selecione um cliente.');
         return;
     }
-    if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o cliente?'))
+    if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o cliente?')) {
         await window.projetoAPI.deletarCliente(id);
+        await window.dialogAPI.alertar('Cliente deletado com sucesso')
+    }
     carregarClientes();
     limparCamposCliente();
 }

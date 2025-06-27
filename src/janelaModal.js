@@ -4,8 +4,8 @@ const { getJanelaPrincipal } = require('./janelaPrincipal');
 
 function criarJanelaModal(arquivohtml, telaPai) {
     const janela = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1050,
+        height: 950,
         modal: true,
         parent: telaPai,
         webPreferences: {

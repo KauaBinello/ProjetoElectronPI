@@ -27,13 +27,23 @@ async function salvarUsuario() {
     const login = modalLoginUsuario.value;
     const senha = modalSenhaUsuario.value;
     const perfil = modalPerfilUsuario.value
-    if (!id || !nome || !email || !login || !senha || !perfil) {
+    if (!nome || !email || !login || !senha || !perfil) {
         await window.dialogAPI.alertar('Por favor! preencha todos os campos')
+    }
+    const emailExiste = await window.projetoAPI.validaEmail(email);
+    const loginExiste = await window.projetoAPI.validaUsuario(login);
+    if(emailExiste) {
+        await window.dialogAPI.alertar('Já existe um usuário cadastrado com este email.');
+    }
+    if(loginExiste) {
+        await window.dialogAPI.alertar('Já existe um usuário cadastrado com este login.');
     }
     if (id === '') {
         await window.projetoAPI.adicionarUsuario(nome, email, login, senha, perfil);
+        await window.dialogAPI.alertar('Usuário cadastrado com sucesso');
     } else {
         await window.projetoAPI.atualizarUsuario(nome, email, login, senha, perfil, id);
+        await window.dialogAPI.alertar('Usuário atualizado com sucesso');
     }
     carregarUsuarios();
     limparCamposUsuario();
@@ -41,8 +51,13 @@ async function salvarUsuario() {
 
 async function deletarUsuario() {
     const id = modalIdUsuario.value;
+    if (!id) {
+        await window.dialogAPI.alertar('Por favor, selecione um usuário para excluir.');
+        return;
+    }
     if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o usuário?')) {
         await window.projetoAPI.deletarUsuario(id);
+        await window.dialogAPI.alertar('Usuário deletado com sucesso');
     }
     carregarUsuarios();
     limparCamposUsuario();

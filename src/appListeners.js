@@ -9,7 +9,7 @@ const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario } = requ
 const { getDistribuicoes, adicionarDistribuicao } = require('./distribuicao/distribuicaoDB')
 
 const { validarLogin } = require('./login/loginDB')
-const { validaCliente, validaMedicamento } = require('./validacoes/validacoesDB')
+const { validaCliente, validaMedicamento, validaTelefone, validaUsuario, validaEmail } = require('./validacoes/validacoesDB')
 
 const { mostrarAlerta, mostrarConfirm } = require('./dialogs/dialogs')
 
@@ -56,6 +56,9 @@ function registrarJanelas() {
 function registrarValidacoes() {
     ipcMain.handle('valida-cliente', validaCliente);
     ipcMain.handle('valida-medicamento', validaMedicamento);
+    ipcMain.handle('valida-telefone', validaTelefone);
+    ipcMain.handle('valida-usuario', validaUsuario);
+    ipcMain.handle('valida-email', validaEmail);
 }
 
 function registrarDialogs() {

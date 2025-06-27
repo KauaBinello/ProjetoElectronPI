@@ -49,11 +49,22 @@ async function getDistribuicoes() {
 async function adicionarDistribuicao(medicamento_id, quantidade, saida, usuarioId, cliente_id) {
     return ipcRenderer.invoke('adicionar-distribuicao', medicamento_id, quantidade, saida, usuarioId, cliente_id)
 }
+
+// validações
 async function validaCliente(cpf) {
     return ipcRenderer.invoke('valida-cliente', cpf)
 }
 async function validaMedicamento(nome) {
     return ipcRenderer.invoke('valida-medicamento', nome)
+}
+async function validaTelefone(telefone) {
+    return ipcRenderer.invoke('valida-telefone', telefone)
+}
+async function validaUsuario(login) {
+    return ipcRenderer.invoke('valida-usuario', login)
+}
+async function validaEmail(email) {
+    return ipcRenderer.invoke('valida-email', email)
 }
 
 //login
@@ -91,6 +102,7 @@ function alertar(mensagem) {
 function confirmar(mensagem) {
     return ipcRenderer.invoke('mostrar-confirm', mensagem);
 }
+
 // Expondo as APIs para o contexto da janela principal
 contextBridge.exposeInMainWorld('projetoAPI',
     {
@@ -113,8 +125,12 @@ contextBridge.exposeInMainWorld('projetoAPI',
 
         getDistribuicoes,
         adicionarDistribuicao,
+
         validaCliente,
         validaMedicamento,
+        validaTelefone,
+        validaUsuario,
+        validaEmail
     }
 )
 
