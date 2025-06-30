@@ -8,6 +8,7 @@ btnLogin.addEventListener('click', validarLogin);
 async function validarLogin() {
     try {
         const retorno = await window.projetoAPI.validarLogin(login.value, senha.value);
+
         if (!retorno || !retorno.perfil) {
             throw new Error('Login inválido');
         }
@@ -16,13 +17,13 @@ async function validarLogin() {
             case 'Administrador':
                 localStorage.setItem('perfil', retorno.perfil)
                 localStorage.setItem('id', retorno.id)
-                localStorage.setItem('nome', retorno.nome);
+                localStorage.setItem('nomeUsuario', retorno.nome);
                 await window.janelaAPI.createMainWindow();
                 break;
             case 'Usuário':
                 localStorage.setItem('perfil', retorno.perfil)
                 localStorage.setItem('id', retorno.id)
-                localStorage.setItem('nome', retorno.nome);
+                localStorage.setItem('nomeUsuario', retorno.nome);
                 await window.janelaAPI.createMainWindowUser();
                 break;
             default:

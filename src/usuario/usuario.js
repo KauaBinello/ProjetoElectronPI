@@ -29,14 +29,17 @@ async function salvarUsuario() {
     const perfil = modalPerfilUsuario.value
     if (!nome || !email || !login || !senha || !perfil) {
         await window.dialogAPI.alertar('Por favor! preencha todos os campos')
+        return;
     }
     const emailExiste = await window.projetoAPI.validaEmail(email);
     const loginExiste = await window.projetoAPI.validaUsuario(login);
     if(emailExiste) {
         await window.dialogAPI.alertar('Já existe um usuário cadastrado com este email.');
+        return;
     }
     if(loginExiste) {
         await window.dialogAPI.alertar('Já existe um usuário cadastrado com este login.');
+        return
     }
     if (id === '') {
         await window.projetoAPI.adicionarUsuario(nome, email, login, senha, perfil);
@@ -115,10 +118,6 @@ async function criarLinhaUsuario(usuario) {
     const celulaLogin = document.createElement('td');
     celulaLogin.textContent = usuario.login;
     linha.appendChild(celulaLogin);
-
-    const celulaSenha = document.createElement('td');
-    celulaSenha.textContent = usuario.senha;
-    linha.appendChild(celulaSenha);
 
     const celulaPerfil = document.createElement('td');
     celulaPerfil.textContent = usuario.perfil;

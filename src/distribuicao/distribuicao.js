@@ -39,6 +39,8 @@ async function adicionarDistribuicao() {
     const quantidade = parseInt(modalQuantidade.value)
     const saldo = parseInt(medicamento.saldo)
 
+    console.log(saldo, quantidade)
+
     if (isNaN(quantidade) || quantidade <= 0) {
         await window.dialogAPI.alertar('Quantidade deve ser maior que zero.');
         return;

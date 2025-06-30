@@ -16,7 +16,7 @@ async function validaTelefone(event, telefone) {
 
 async function validaMedicamento(event, nome) {
     const sql = await db.query(`
-        SELECT id
+        SELECT id, saldo
         FROM pi.medicamentos
         WHERE TRIM(nome) ILIKE TRIM($1)
     `, [nome])

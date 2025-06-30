@@ -6,21 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
 
 </head>
 
 <body>
-    <h2>Digite seus dados</h2>
+<h2>Digite seus dados</h2>
+
+<div class="input-group">
+    <i data-lucide="user"></i>
     <input id="login" type="text" placeholder="Digite seu login" />
-    <br>
+</div>
+
+<div class="input-group">
+    <i data-lucide="lock"></i>
     <input id="senha" type="password" placeholder="Digite sua senha" />
-    <br>
-    <button id="acessar">
-        <i data-lucide="log-in"></i>
-    </button>
-    <br>
-    <p id="msg"></p>
+</div>
+
+<button id="acessar">
+    <i data-lucide="log-in"></i>
+</button>
+
+<p id="msg"></p>
+
     <script src="login.js"></script>
 </body>
 
