@@ -33,15 +33,20 @@ async function salvarUsuario() {
     }
     const emailExiste = await window.projetoAPI.validaEmail(email);
     const loginExiste = await window.projetoAPI.validaUsuario(login);
-    if(emailExiste) {
-        await window.dialogAPI.alertar('Já existe um usuário cadastrado com este email.');
+
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+        await window.dialogAPI.alertar('Email inválido. Por favor, insira um email válido.');
         return;
     }
-    if(loginExiste) {
-        await window.dialogAPI.alertar('Já existe um usuário cadastrado com este login.');
-        return
-    }
     if (id === '') {
+        if (emailExiste) {
+            await window.dialogAPI.alertar('Já existe um usuário cadastrado com este email.');
+            return;
+        }
+        if (loginExiste) {
+            await window.dialogAPI.alertar('Já existe um usuário cadastrado com este login.');
+            return;
+        }
         await window.projetoAPI.adicionarUsuario(nome, email, login, senha, perfil);
         await window.dialogAPI.alertar('Usuário cadastrado com sucesso');
     } else {
