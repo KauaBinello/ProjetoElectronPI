@@ -12,6 +12,17 @@ FROM pi.medicamentos`);
     return sql.rows;
 }
 
+async function getMedicamentoById(event, id) {
+    const sql = await db.query(`SELECT 
+  id, 
+  nome, 
+  embalagem, 
+  saldo, 
+  TO_CHAR(validade, 'YYYY-MM-DD') AS validade
+FROM pi.medicamentos WHERE id = $1`, [id]);
+    return sql.rows[0];
+}
+
 async function adicionarMedicamento(event, nome, embalagem, saldo, validade) {
     const sql = `INSERT INTO pi.medicamentos (nome, embalagem, saldo, validade) 
                  VALUES ($1, $2, $3, $4)`;
@@ -40,5 +51,6 @@ module.exports = {
     getMedicamentos,
     adicionarMedicamento,
     atualizarMedicamento,
-    deletarMedicamento
+    deletarMedicamento,
+    getMedicamentoById
 };

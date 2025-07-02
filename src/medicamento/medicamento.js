@@ -30,10 +30,6 @@ async function salvarMedicamento() {
         await window.dialogAPI.alertar('Por favor. preencha os campos.');
         return;
     }
-    if (medicamentoExiste) {
-        await window.dialogAPI.alertar('Medicamento já cadastrado.');
-        return;
-    }
     if (parseInt(saldo) <= 0) {
         await window.dialogAPI.alertar('Saldo deve ser maior que zero.');
         return;
@@ -43,6 +39,10 @@ async function salvarMedicamento() {
         return;
     }
     if (id === '') {
+        if (medicamentoExiste) {
+            await window.dialogAPI.alertar('Medicamento já cadastrado.');
+            return;
+        }
         await window.projetoAPI.adicionarMedicamento(nome, embalagem, saldo, validade);
         await window.dialogAPI.alertar('Medicamento cadastrado com sucesso');
     } else {
@@ -108,7 +108,6 @@ function pesquisa() {
     });
 }
 
-
 async function criarLinhaMedicamento(medicamento) {
     const linha = document.createElement('tr');
 
@@ -134,6 +133,8 @@ async function criarLinhaMedicamento(medicamento) {
     botao.addEventListener('click',
         function () { mostrarDetalhes(medicamento.id, medicamento.nome, medicamento.embalagem, medicamento.saldo, medicamento.validade) }
     )
+    botao.addEventListener('click', localStorage.setItem('medicamentoId', medicamento.id));
+    botao.addEventListener('click', await window.janelaAPI.abrirDadosMedicamento);
 
     const icone = document.createElement('i');
     icone.setAttribute('data-lucide', 'edit-2');

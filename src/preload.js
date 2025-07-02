@@ -13,6 +13,9 @@ async function atualizarMedicamento(nome, embalagem, saldo, validade, id) {
 async function deletarMedicamento(id) {
     return ipcRenderer.invoke('deletar-medicamento', id);
 }
+async function getMedicamentoById(id) {
+    return ipcRenderer.invoke('get-medicamento-by-id', id);
+}
 
 //cliente
 async function getClientes() {
@@ -94,6 +97,9 @@ function abrirDistribuicao() {
 function createMainWindowUser() {
     ipcRenderer.send('abrir-janela-user')
 }
+function abrirDadosMedicamento() {
+    ipcRenderer.send('abrir-dados-medicamento');
+}
 
 //caixas de dialogo
 function alertar(mensagem) {
@@ -110,6 +116,7 @@ contextBridge.exposeInMainWorld('projetoAPI',
         adicionarMedicamento,
         atualizarMedicamento,
         deletarMedicamento,
+        getMedicamentoById,
 
         getClientes,
         adicionarCliente,
@@ -140,12 +147,13 @@ contextBridge.exposeInMainWorld('dialogAPI',
 
 contextBridge.exposeInMainWorld('janelaAPI',
     {
-        abrirMedicamento: abrirMedicamento,
-        abrirCliente: abrirCliente,
-        abrirUsuario: abrirUsuario,
-        createMainWindow: createMainWindow,
-        fecharLogin: fecharLogin,
-        abrirDistribuicao: abrirDistribuicao,
-        createMainWindowUser: createMainWindowUser
+        abrirMedicamento,
+        abrirCliente,
+        abrirUsuario,
+        createMainWindow,
+        fecharLogin,
+        abrirDistribuicao,
+        createMainWindowUser,
+        abrirDadosMedicamento
     }
 );

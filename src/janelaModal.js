@@ -2,6 +2,8 @@ const { BrowserWindow } = require('electron')
 const path = require('path');
 const { getJanelaPrincipal } = require('./janelaPrincipal');
 
+const janela = null; // Variável para armazenar a janela modal
+
 function criarJanelaModal(arquivohtml, telaPai) {
     const janela = new BrowserWindow({
         width: 1050,
@@ -27,30 +29,39 @@ function modalAbrirMedicamento(event) {
     }
 }
 
-function modalAbrirCliente(event) {
-    let mainWindow = getJanelaPrincipal()
+function AbrirDadosMedicamento(event) {
+    let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/cliente/cliente.html', mainWindow)
+        criarJanelaModal('./src/medicamento/medicamentoDados.html', mainWindow);
     } else {
-        console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
+        console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
+    }
+}
+
+function modalAbrirCliente(event) {
+    let mainWindow = getJanelaPrincipal();
+    if (mainWindow) {
+        criarJanelaModal('./src/cliente/cliente.html', mainWindow);
+    } else {
+        console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
 }
 
 function modalAbrirUsuario(event) {
-    let mainWindow = getJanelaPrincipal()
+    let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/usuario/usuario.html', mainWindow)
+        criarJanelaModal('./src/usuario/usuario.html', mainWindow);
     } else {
-        console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
+        console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
 }
 
 function modalAbrirDistribuicao(event) {
-    let mainWindow = getJanelaPrincipal()
+    let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/distribuicao/distribuicao.html', mainWindow)
+        criarJanelaModal('./src/distribuicao/distribuicao.html', mainWindow);
     } else {
-        console.warn('Não foi possivel abrir a modal: Janela principal não encontrada.')
+        console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
 }
 
@@ -59,5 +70,6 @@ module.exports = {
     modalAbrirMedicamento,
     modalAbrirCliente,
     modalAbrirUsuario,
-    modalAbrirDistribuicao
+    modalAbrirDistribuicao,
+    AbrirDadosMedicamento
 }
