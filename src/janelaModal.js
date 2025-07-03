@@ -2,40 +2,46 @@ const { BrowserWindow } = require('electron')
 const path = require('path');
 const { getJanelaPrincipal } = require('./janelaPrincipal');
 
-const janela = null; // Variável para armazenar a janela modal
+let janelaMedicamento = null;
 
 function criarJanelaModal(arquivohtml, telaPai) {
-    const janela = new BrowserWindow({
+    const novaJanela = new BrowserWindow({
         width: 1050,
         height: 950,
         modal: true,
         parent: telaPai,
+        resizable: false,
+        minimizable: false,
+        maximizable: false,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
     });
 
-    janela.loadFile(arquivohtml); // Carrega o HTML correto
+    novaJanela.loadFile(arquivohtml);
 
-    return janela;
+    return novaJanela;
 }
 
 function modalAbrirMedicamento(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/medicamento/medicamento.html', mainWindow);
+        janelaMedicamento = criarJanelaModal('./src/medicamento/medicamento.html', mainWindow);
     } else {
         console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
 }
 
 function AbrirDadosMedicamento(event) {
-    let mainWindow = getJanelaPrincipal();
-    if (mainWindow) {
-        criarJanelaModal('./src/medicamento/medicamentoDados.html', mainWindow);
+    if (janelaMedicamento) {
+        criarJanelaModal('./src/medicamento/medicamentoDados.html', janelaMedicamento);
     } else {
-        console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
+        console.warn('Não foi possível abrir a modal de detalhes: janelaMedicamento não está definida.');
     }
+}
+
+function getJanelaMedicamento() {
+    return janelaMedicamento;
 }
 
 function modalAbrirCliente(event) {
@@ -71,5 +77,6 @@ module.exports = {
     modalAbrirCliente,
     modalAbrirUsuario,
     modalAbrirDistribuicao,
-    AbrirDadosMedicamento
+    AbrirDadosMedicamento,
+    getJanelaMedicamento
 }

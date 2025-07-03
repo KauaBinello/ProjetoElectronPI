@@ -130,11 +130,11 @@ async function criarLinhaMedicamento(medicamento) {
     const celulaBotao = document.createElement('td');
 
     const botao = document.createElement('button');
-    botao.addEventListener('click',
-        function () { mostrarDetalhes(medicamento.id, medicamento.nome, medicamento.embalagem, medicamento.saldo, medicamento.validade) }
-    )
-    botao.addEventListener('click', localStorage.setItem('medicamentoId', medicamento.id));
-    botao.addEventListener('click', await window.janelaAPI.abrirDadosMedicamento);
+
+    botao.addEventListener('click', () => {
+        localStorage.setItem('medicamentoId', medicamento.id);
+        window.janelaAPI.abrirDadosMedicamento();
+    });
 
     const icone = document.createElement('i');
     icone.setAttribute('data-lucide', 'edit-2');
@@ -150,3 +150,7 @@ async function criarLinhaMedicamento(medicamento) {
 }
 carregarMedicamentos();
 pesquisa()
+
+window.comunicacaoAPI.escutarAtualizacao(() => {
+    carregarMedicamentos(); // Atualiza a lista
+});

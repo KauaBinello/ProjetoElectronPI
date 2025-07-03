@@ -157,3 +157,8 @@ contextBridge.exposeInMainWorld('janelaAPI',
         abrirDadosMedicamento
     }
 );
+
+contextBridge.exposeInMainWorld('comunicacaoAPI', {
+    notificarAtualizacao: () => ipcRenderer.send('medicamento-atualizado'),
+    escutarAtualizacao: (callback) => ipcRenderer.on('medicamento-atualizado', callback)
+});
