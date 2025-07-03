@@ -1,17 +1,23 @@
-/* Reset */
+/* Reset base e tipografia moderna aprimorada */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2a3b4c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.3px;
+  scroll-behavior: smooth;
 }
 
-/* Fundo */
 body {
-  background: linear-gradient(135deg, #f0f4f8, #dbe9f4);
-  padding: 48px 24px;
+  background: linear-gradient(145deg, #f0f6ff, #e3eefc);
+  padding: 32px;
   min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,71 +26,132 @@ body {
 
 /* Título */
 h2 {
-  font-size: 28px;
+  font-size: 24px;
   margin-bottom: 32px;
-  color: #2c3e50;
-  font-weight: 600;
+  font-weight: 700;
+  color: #2e4560;
 }
 
-/* Container dos inputs com ícone */
+/* Grupo de input com ícone */
 .input-group {
-  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1.5px solid #c0d7eb;
+  border-radius: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
   width: 100%;
   max-width: 360px;
-  margin-bottom: 20px;
-}
-
-.input-group svg {
-  position: absolute;
-  top: 50%;
-  left: 14px;
-  transform: translateY(-50%);
-  width: 20px;
-  height: 20px;
-  stroke: #a5b5c5;
-}
-
-/* Input */
-.input-group input {
-  width: 100%;
-  padding: 12px 16px 12px 44px; /* espaço pro ícone */
-  font-size: 15px;
-  border: 2px solid #d4e6f7;
-  border-radius: 10px;
-  background-color: #fff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.input-group input:focus {
-  border-color: #5c88c4;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(92, 136, 196, 0.1);
+.input-group:focus-within {
+  border-color: #4a76aa;
+  box-shadow: 0 0 0 5px rgba(74, 118, 170, 0.15);
 }
 
-#acessar {
-  background-color: #3498db;
-  color: white;
-  padding: 14px;
+/* Ícones dentro dos inputs */
+.input-group i[data-lucide] {
+  stroke: #4a76aa;
+  width: 22px;
+  height: 22px;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+/* Inputs */
+.input-group input {
   border: none;
-  border-radius: 10px;
+  outline: none;
+  flex: 1;
+  font-size: 15.5px;
+  color: #2a3b4c;
+  background: transparent;
+  padding-left: 12px
+}
+
+/* Botão de login */
+button#acessar {
+  border: none;
+  background: linear-gradient(135deg, #4a76aa, #345c8c);
+  color: #fff;
+  padding: 14px 166px;
+  font-size: 15.5px;
+  font-weight: 600;
+  border-radius: 14px;
   cursor: pointer;
-  width: 100%;
-  max-width: 360px;
-  transition: 0.3s;
-  display: flex;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 10px rgba(52, 152, 219, 0.15);
+  gap: 10px;
+  margin-top: 12px;
 }
 
 #acessar:hover {
-  background-color: #2980b9;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(41, 128, 185, 0.2);
+  background: linear-gradient(135deg, #3a6390, #2b4c75);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
 }
 
-#acessar svg {
-  width: 24px;
-  height: 24px;
+#acessar:active {
+  transform: scale(0.96);
+}
+
+#acessar:focus-visible {
+  outline: 3px solid rgba(74, 118, 170, 0.35);
+  outline-offset: 4px;
+}
+
+/* Mensagem abaixo do botão */
+#msg {
+  margin-top: 18px;
+  font-size: 15px;
+  text-align: center;
+  max-width: 360px;
+  color: #cc3344;
+}
+
+/* Ícones do botão */
+#acessar i[data-lucide] {
   stroke: #fff;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  body {
+    padding: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  .input-group {
+    padding: 10px 14px;
+    max-width: 100%;
+  }
+
+  .input-group i[data-lucide] {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .input-group input {
+    font-size: 14.5px;
+  }
+
+  #acessar {
+    width: 100%;
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  #msg {
+    font-size: 14px;
+  }
 }

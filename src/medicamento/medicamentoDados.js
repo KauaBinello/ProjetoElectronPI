@@ -13,7 +13,11 @@ botaoSalvar.addEventListener('click', salvarMedicamento);
 botaoDeletar.addEventListener('click', deletarMedicamento);
 
 function limparCamposMedicamento() {
-    mostrarDetalhes('', '', '', '', '');
+    modalIdMedicamento.value = '';
+    modalNomeMedicamento.value = '';
+    modalEmbalagemMedicamento.value = '';
+    modalSaldoMedicamento.value = '';
+    modalValidadeMedicamento.value = '';
 }
 
 async function mostrarDetalhes() {

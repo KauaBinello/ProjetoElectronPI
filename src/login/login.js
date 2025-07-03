@@ -17,13 +17,13 @@ async function validarLogin() {
             case 'Administrador':
                 localStorage.setItem('perfil', retorno.perfil)
                 localStorage.setItem('id', retorno.id)
-                localStorage.setItem('nomeUsuario', retorno.nome);
+                localStorage.setItem('nome', retorno.nome);
                 await window.janelaAPI.createMainWindow();
                 break;
             case 'Usuário':
                 localStorage.setItem('perfil', retorno.perfil)
                 localStorage.setItem('id', retorno.id)
-                localStorage.setItem('nomeUsuario', retorno.nome);
+                localStorage.setItem('nome', retorno.nome);
                 await window.janelaAPI.createMainWindowUser();
                 break;
             default:

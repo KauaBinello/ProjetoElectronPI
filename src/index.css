@@ -1,78 +1,119 @@
-/* Reset básico */
+/* Reset base e tipografia moderna aprimorada */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2a3b4c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.3px;
+  scroll-behavior: smooth;
 }
 
-/* Fundo com gradiente suave */
 body {
-  background: linear-gradient(135deg, #f8fbff, #eaf3fc);
-  padding: 48px 24px;
+  background: linear-gradient(145deg, #f0f6ff, #e3eefc);
+  padding: 32px;
   min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-x: hidden;
+  color-scheme: light;
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 32px;
+}
+
+/* Perfil */
+#perfil {
+  text-align: center;
+  background: #fff;
+  padding: 18px 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  width: 302px;
+}
+
+#perfil p {
+  font-weight: 600;
+  font-size: 18px;
+  color: #345c8c;
+  margin-bottom: 6px;
 }
 
 /* Logo */
 #logo {
-  width: 380px;
-  margin-top: 22px;
-  margin-bottom: 12px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.08));
+  width: 350px;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
   transition: transform 0.3s ease;
+  cursor: default;
 }
 
 #logo:hover {
-  transform: scale(1.02);
+  transform: scale(1.05);
 }
 
 /* Botões principais */
 button {
-  background-color: #478de0;
   border: none;
-  color: white;
-  padding: 15px 30px;
+  background: linear-gradient(135deg, #4a76aa, #345c8c);
+  color: #fff;
+  padding: 14px 28px;
   font-size: 16px;
-  border-radius: 12px;
+  font-weight: 600;
+  border-radius: 14px;
   cursor: pointer;
-  margin: 12px 0;
-  width: 100%;
-  max-width: 320px;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 10px rgba(71, 141, 224, 0.15);
-  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  width: 300px;
+  max-width: 90vw;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
 }
 
 button:hover {
-  background-color: #3c7ac4;
-  box-shadow: 0 6px 16px rgba(60, 122, 196, 0.25);
-  transform: translateY(-2px);
+  background: linear-gradient(135deg, #3a6390, #2b4c75);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
 }
 
-#perfil {
-  background-color: white;
-  border-left: 6px solid #478de0;
-  border-radius: 12px;
-  padding: 16px 20px;
-  margin: 20px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  max-width: 320px;
-  width: 100%;
-  text-align: left;
-  transition: transform 0.2s ease;
+button:active {
+  transform: scale(0.96);
 }
 
-#perfil:hover {
-  transform: scale(1.01);
+button:focus-visible {
+  outline: 3px solid rgba(74, 118, 170, 0.35);
+  outline-offset: 4px;
 }
 
-#perfil p {
-  margin: 6px 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: #2a3b4c;
+/* Responsividade */
+@media (max-width: 480px) {
+  body {
+    padding: 20px 12px;
+    gap: 24px;
+  }
+  
+  #perfil {
+    width: 100%;
+    padding: 14px 20px;
+  }
+
+  #perfil p {
+    font-size: 16px;
+  }
+  
+  #logo {
+    width: 140px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 12px 0;
+    font-size: 15px;
+  }
 }
