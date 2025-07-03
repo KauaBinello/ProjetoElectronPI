@@ -1,1 +1,0 @@
-Melhoria: Quando clicar em um 'medicamento', 'cliente', ou 'usuário, ao invés de exibir os dados no 'modal' na parte de baixo da tela, quero que abra uma nova janela puxando os dados.
