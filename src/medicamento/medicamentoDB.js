@@ -6,7 +6,6 @@ async function getMedicamentos() {
   nome, 
   embalagem, 
   saldo, 
-  TO_CHAR(validade, 'YYYY-MM-DD') AS validade,
   TO_CHAR(validade, 'DD/MM/YYYY') AS validade_formatada
 FROM pi.medicamentos`);
     return sql.rows;
