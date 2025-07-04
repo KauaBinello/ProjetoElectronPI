@@ -7,7 +7,7 @@ async function getMedicamentos() {
   embalagem, 
   saldo, 
   TO_CHAR(validade, 'DD/MM/YYYY') AS validade_formatada
-FROM pi.medicamentos`);
+FROM pi.medicamentos ORDER BY nome`);
     return sql.rows;
 }
 

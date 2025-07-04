@@ -1,187 +1,184 @@
-/* Reset básico */
+/* Reset base e tipografia moderna aprimorada */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #2a3b4c;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: 0.3px;
+  scroll-behavior: smooth;
 }
 
-/* Fundo com transição suave */
 body {
-  background: linear-gradient(135deg, #f8fbff, #eaf3fc);
-  padding: 24px;
+  background: linear-gradient(145deg, #f0f6ff, #e3eefc);
+  padding: 32px;
   min-height: 100vh;
-}
-
-/* Campo de busca */
-#campo-pesquisa {
-  width: 100%;
-  padding: 8px 12px;
   font-size: 16px;
-  border: 1.5px solid #c9ddf0;
-  border-radius: 10px;
-  background-color: white;
-  margin-bottom: 10px;
-  transition: 0.3s ease;
+  line-height: 1.75;
+  overflow-x: hidden;
+  color-scheme: light;
 }
 
-#campo-pesquisa:focus {
+/* Modal container */
+#modal {
+  background: #fff;
+  border-radius: 16px;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 28px 32px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Modal heading */
+#modal h3 {
+  color: #2e4560;
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+/* Labels com inputs alinhados verticalmente */
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  font-size: 15px;
+  color: #345c8c;
+  gap: 6px;
+}
+
+/* Inputs text e number e date */
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 1.5px solid #c0d7eb;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #2a3b4c;
+}
+
+input[readonly] {
+  background-color: #f5f7fa;
+  cursor: not-allowed;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus {
   border-color: #4a76aa;
   outline: none;
-  box-shadow: 0 0 0 3px rgba(90, 138, 194, 0.15);
+  box-shadow: 0 0 0 5px rgba(74, 118, 170, 0.15);
 }
 
-/* Estilização da tabela */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: #fff;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-}
-
-thead {
-  background-color: #4a76aa;
-}
-
-thead th {
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 14px;
-  letter-spacing: 0.5px;
-}
-
-th,
-td {
-  padding: 16px 20px;
-  text-align: left;
-  border-bottom: 1px solid #eef2f7;
-  font-size: 15px;
-}
-
-tbody tr {
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-tbody tr:hover {
-  background-color: #f3f8fe;
-  transform: scale(1.002);
-  cursor: pointer;
-}
-
-/* Botões gerais */
+/* Botões no modal */
 button {
   border: none;
-  color: white;
-  padding: 11px 22px;
-  font-size: 15px;
-  border-radius: 10px;
+  background: linear-gradient(135deg, #4a76aa, #345c8c);
+  color: #fff;
+  padding: 14px 87px;
+  font-size: 15.5px;
+  font-weight: 600;
+  border-radius: 14px;
   cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
 }
 
-/* Modal */
-#modal {
-  background: #ffffff;
-  max-width: 520px;
-  margin: 48px auto;
-  padding: 28px 32px;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
-  position: relative;
+button:hover {
+  background: linear-gradient(135deg, #3a6390, #2b4c75);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
 }
 
-/* Título do modal */
-#modal h3 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #34495e;
-  border-bottom: 2px solid #4a76aa;
-  padding-bottom: 10px;
+button:active {
+  transform: scale(0.96);
 }
 
-/* Labels */
-#modal label {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 15px;
-  color: #34495e;
-  font-weight: 600;
+button:focus-visible {
+  outline: 3px solid rgba(74, 118, 170, 0.35);
+  outline-offset: 4px;
 }
 
-/* Inputs */
-#modal input {
-  width: 100%;
-  padding: 11px 14px;
-  font-size: 15px;
-  border: 1.5px solid #c9ddf0;
-  border-radius: 8px;
-  margin-bottom: 18px;
-  transition: 0.3s ease;
-}
-
-#modal input:focus {
-  border-color: #4a76aa;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(90, 138, 194, 0.15);
-}
-
-/* Botão limpar */
-#btn-limpar {
-  background-color: #f1c40f;
-  width: 60px;
-  position: absolute;
-  top: 22px;
-  right: 30px;
-  padding: 8px;
-  box-shadow: 0 2px 6px rgba(241, 196, 15, 0.3);
-}
-
-#btn-limpar:hover {
-  background-color: #d4ac0d;
-}
-
-/* Botão salvar */
-#btn-salvar {
-  background-color: #3498db;
-  box-shadow: 0 2px 6px rgba(52, 152, 219, 0.3);
-}
-
-#btn-salvar:hover {
-  background-color: #2980b9;
-}
-
-/* Botão deletar */
-#btn-deletar {
-  background-color: #e74c3c;
-  box-shadow: 0 2px 6px rgba(231, 76, 60, 0.3);
-}
-
-#btn-deletar:hover {
-  background-color: #c0392b;
-}
-
-/* Container dos botões */
+/* Botões agrupados */
 .modal-actions {
   display: flex;
   gap: 16px;
-  margin-top: 24px;
+  justify-content: center;
+  margin-top: 10px;
 }
 
-.modal-actions button {
-  flex: 1;
+/* Botão limpar com ícone maior */
+#btn-limpar {
+  align-self: flex-end;
+  background: #e3eefc;
+  color: #345c8c;
+  padding: 14px 87px;
+  border-radius: 12px;
+  box-shadow: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-bottom: -8px;
+  margin-top: -12px;
 }
 
-/* Ícones lucide */
-i[data-lucide] {
-  stroke: white;
-  width: 18px;
-  height: 18px;
+#btn-limpar:hover {
+  background: #4a76aa;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+
+#btn-limpar i[data-lucide] {
+  stroke-width: 2.5;
+  width: 22px;
+  height: 22px;
+}
+
+/* Ícones Lucide dentro dos botões */
+button i[data-lucide] {
+  stroke: #fff;
+  width: 20px;
+  height: 20px;
+  transition: transform 0.2s ease, stroke 0.2s ease;
+}
+
+button:hover i[data-lucide] {
+  stroke: #c0d7eb;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  #modal {
+    padding: 24px 20px;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"] {
+    font-size: 14.5px;
+  }
+
+  button {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  #btn-limpar {
+    padding: 8px 12px;
+  }
 }

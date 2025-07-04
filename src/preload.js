@@ -159,6 +159,6 @@ contextBridge.exposeInMainWorld('janelaAPI',
 );
 
 contextBridge.exposeInMainWorld('comunicacaoAPI', {
-    notificarAtualizacao: () => ipcRenderer.send('medicamento-atualizado'),
-    escutarAtualizacao: (callback) => ipcRenderer.on('medicamento-atualizado', callback)
+    notificarAtualizacao: () => ipcRenderer.send('item-atualizado'),
+    escutarAtualizacao: (callback) => ipcRenderer.on('item-atualizado', callback)
 });
