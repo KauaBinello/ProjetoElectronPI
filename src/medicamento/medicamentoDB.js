@@ -46,10 +46,16 @@ async function deletarMedicamento(event, id) {
     await db.query(sql, values);
 }
 
+function somar(a, b) {
+    let soma = a + b
+    return soma
+}
+
 module.exports = {
     getMedicamentos,
     adicionarMedicamento,
     atualizarMedicamento,
     deletarMedicamento,
-    getMedicamentoById
+    getMedicamentoById,
+    somar
 };

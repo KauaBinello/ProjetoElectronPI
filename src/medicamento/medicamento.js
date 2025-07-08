@@ -1,3 +1,11 @@
+const cadastrarMedicamento = document.getElementById('cadastrar-medicamento')
+cadastrarMedicamento.addEventListener('click', cadastrarMedicamentoNovo)
+
+function cadastrarMedicamentoNovo() {
+    localStorage.setItem('medicamentoId', '' )
+    window.janelaAPI.abrirDadosMedicamento()
+}
+
 window.comunicacaoAPI.escutarAtualizacao(() => {
     carregarMedicamentos(); // Atualiza a lista
 });

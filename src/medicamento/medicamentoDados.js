@@ -1,3 +1,5 @@
+lucide.createIcons();
+
 const modalIdMedicamento = document.getElementById('medicamento-id');
 const modalNomeMedicamento = document.getElementById('medicamento-nome');
 const modalEmbalagemMedicamento = document.getElementById('medicamento-embalagem');
@@ -22,16 +24,21 @@ function limparCamposMedicamento() {
 
 async function mostrarDetalhes() {
     const id = localStorage.getItem('medicamentoId');
+    if (id == '') {
+        modalIdMedicamento.value = '';
+        modalNomeMedicamento.value = '';
+        modalEmbalagemMedicamento.value = '';
+        modalSaldoMedicamento.value = '';
+        modalValidadeMedicamento.value = '';
+    } else {
+        const medicamento = await window.projetoAPI.getMedicamentoById(id);
 
-    const medicamento = await window.projetoAPI.getMedicamentoById(id);
-
-    modalIdMedicamento.value = medicamento.id || '';
-    modalNomeMedicamento.value = medicamento.nome || '';
-    modalEmbalagemMedicamento.value = medicamento.embalagem || '';
-    modalSaldoMedicamento.value = medicamento.saldo || '';
-    modalValidadeMedicamento.value = medicamento.validade || '';
-
-    lucide.createIcons();
+        modalIdMedicamento.value = medicamento.id
+        modalNomeMedicamento.value = medicamento.nome
+        modalEmbalagemMedicamento.value = medicamento.embalagem
+        modalSaldoMedicamento.value = medicamento.saldo
+        modalValidadeMedicamento.value = medicamento.validade
+    }
 }
 
 async function salvarMedicamento() {
