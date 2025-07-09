@@ -30,6 +30,9 @@ async function atualizarCliente(nome, cpf, telefone, nascimento, endereco, numer
 async function deletarCliente(id) {
     return ipcRenderer.invoke('deletar-cliente', id)
 }
+async function getClienteById(id) {
+    return ipcRenderer.invoke('get-cliente-by-id', id)
+}
 
 //usuario
 async function getUsuarios() {
@@ -125,6 +128,7 @@ contextBridge.exposeInMainWorld('projetoAPI',
         adicionarCliente,
         atualizarCliente,
         deletarCliente,
+        getClienteById,
 
         getUsuarios,
         adicionarUsuario,

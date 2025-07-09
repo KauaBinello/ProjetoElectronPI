@@ -1,10 +1,10 @@
-const { ipcMain, dialog, BrowserWindow } = require('electron');
+const { ipcMain } = require('electron');
 
 const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario, modalAbrirDistribuicao, AbrirDadosMedicamento, abrirDadosCliente } = require('./janelaModal');
 const { createMainWindow, closeLoginWindow, createMainWindowUser } = require('./janelaPrincipal')
 
 const { getMedicamentos, getMedicamentoById, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
-const { getClientes, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
+const { getClientes, getClienteById, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
 const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario } = require('./usuario/usuarioDB')
 const { getDistribuicoes, adicionarDistribuicao } = require('./distribuicao/distribuicaoDB')
 
@@ -25,7 +25,8 @@ function registrarClientesListeners() {
     ipcMain.handle('get-cliente', getClientes);
     ipcMain.handle('adicionar-cliente', adicionarCliente);
     ipcMain.handle('atualizar-cliente', atualizarCliente);
-    ipcMain.handle('deletar-cliente', deletarCliente)
+    ipcMain.handle('deletar-cliente', deletarCliente);
+    ipcMain.handle('get-cliente-by-id', getClienteById)
 }
 
 function registrarUsuariosListeners() {

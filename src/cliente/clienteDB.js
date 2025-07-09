@@ -18,6 +18,22 @@ ORDER BY id ASC
     return sql.rows;
 }
 
+async function getClienteById(evnet, id) {
+    const sql = await db.query(`SELECT id, 
+        nome,
+        cpf,
+        telefone, 
+        TO_CHAR (nascimento, 'YYYY-MM-DD') AS nascimento,
+        endereco,
+        numero_residencial,
+        bairro,
+        cidade,
+        uf
+        FROM pi.clientes
+        WHERE id = $1`, [id])
+    return sql.rows[0]
+}
+
 async function adicionarCliente(event, nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf) {
     const sql = `INSERT INTO pi.clientes(
 	nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf)
@@ -44,5 +60,6 @@ module.exports = {
     getClientes,
     adicionarCliente,
     atualizarCliente,
-    deletarCliente
+    deletarCliente,
+    getClienteById
 }

@@ -1,96 +1,12 @@
+const cadastrarCliente = document.getElementById('cadastrar-novo')
+cadastrarCliente.addEventListener('click', cadastrarClienteNovo)
+
+function cadastrarClienteNovo() {
+    localStorage.setItem(`clienteId`, '')
+    window.janelaAPI.abrirDadosCliente()
+}
+
 const tabelaCliente = document.getElementById('clientesTableDados')
-const modalIdcliente = document.getElementById('cliente-id')
-const modalNomeCliente = document.getElementById('cliente-nome')
-const modalCpfCliente = document.getElementById('cliente-cpf')
-const modalTelefoneCliente = document.getElementById('cliente-telefone')
-const modalNascimentoCliente = document.getElementById('cliente-nascimento')
-const modalEnderecoCliente = document.getElementById('cliente-endereco')
-const modalNumeroResidencialCliente = document.getElementById('cliente-numero-residencial')
-const modalBairroCliente = document.getElementById('cliente-bairro')
-const modalCidadeCliente = document.getElementById('cliente-cidade')
-const modalEstadoCliente = document.getElementById('cliente-estado')
-
-const botaoSalvar = document.getElementById('btn-salvar')
-const botaoDeletar = document.getElementById('btn-deletar')
-const botaoLimpar = document.getElementById('btn-limpar')
-
-botaoLimpar.addEventListener('click', limparCamposCliente);
-botaoSalvar.addEventListener('click', salvarCliente);
-botaoDeletar.addEventListener('click', deletarCliente);
-
-function limparCamposCliente() {
-    mostrarDetalhes('', '', '', '', '', '', '', '', '', '');
-}
-
-async function salvarCliente() {
-    const id = modalIdcliente.value;
-    const nome = modalNomeCliente.value;
-    const cpf = modalCpfCliente.value;
-    const telefone = modalTelefoneCliente.value;
-    const nascimento = modalNascimentoCliente.value;
-    const endereco = modalEnderecoCliente.value;
-    const numero_residencial = modalNumeroResidencialCliente.value;
-    const bairro = modalBairroCliente.value;
-    const cidade = modalCidadeCliente.value;
-    const uf = modalEstadoCliente.value;
-
-    const cpfExiste = await window.projetoAPI.validaCliente(cpf)
-    const telefoneExiste = await window.projetoAPI.validaTelefone(telefone)
-
-    if (!nome || !cpf || !telefone || !nascimento || !endereco || !numero_residencial || !bairro || !cidade || !uf) {
-        await window.dialogAPI.alertar('Por favor, preencha os campos obrigatórios.');
-        limparCamposCliente();
-        return;
-    }
-    if (cpfExiste) {
-        await window.dialogAPI.alertar('Cliente com este CPF já cadastrado.')
-        return;
-    }
-    if (telefoneExiste) {
-        await window.dialogAPI.alertar('Cliente com este telefone já cadastrado.')
-        return;
-    }
-    if (new Date(nascimento) >= new Date()) {
-        await window.dialogAPI.alertar('Data de nascimento deve ser anterior a hoje.');
-        return;
-    }
-    if (id === '') {
-        await window.projetoAPI.adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf.toUpperCase());
-        await window.dialogAPI.alertar('Cliente cadastrado com sucesso')
-    } else {
-        await window.projetoAPI.atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id.toUpperCase());
-        await window.dialogAPI.alertar('Cliente atualizado com sucesso')
-    }
-    carregarClientes();
-    limparCamposCliente();
-}
-
-async function deletarCliente() {
-    const id = modalIdcliente.value;
-    if (!id) {
-        await window.dialogAPI.alertar('Por favor, selecione um cliente.');
-        return;
-    }
-    if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o cliente?')) {
-        await window.projetoAPI.deletarCliente(id);
-        await window.dialogAPI.alertar('Cliente deletado com sucesso')
-    }
-    carregarClientes();
-    limparCamposCliente();
-}
-
-function mostrarDetalhes(id, nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf) {
-    modalIdcliente.value = id
-    modalNomeCliente.value = nome
-    modalCpfCliente.value = cpf
-    modalTelefoneCliente.value = telefone
-    modalNascimentoCliente.value = nascimento
-    modalEnderecoCliente.value = endereco
-    modalNumeroResidencialCliente.value = numero_residencial
-    modalBairroCliente.value = bairro
-    modalCidadeCliente.value = cidade
-    modalEstadoCliente.value = uf
-}
 
 let lista = []
 
@@ -167,10 +83,11 @@ async function criarLinhaCliente(cliente) {
     const celulaBotao = document.createElement('td');
 
     const botao = document.createElement('button');
-    botao.addEventListener('click',
-        function () { mostrarDetalhes(cliente.id, cliente.nome, cliente.cpf, cliente.telefone, cliente.nascimento, cliente.endereco, cliente.numero_residencial, cliente.bairro, cliente.cidade, cliente.uf) }
-    )
-    botao.addEventListener('click', await window.janelaAPI.abrirDadosCliente)
+
+    botao.addEventListener('click', () => {
+        localStorage.setItem(`clienteId`, cliente.id);
+        window.janelaAPI.abrirDadosCliente();
+    });
 
     const icone = document.createElement('i');
     icone.setAttribute('data-lucide', 'edit-2');
