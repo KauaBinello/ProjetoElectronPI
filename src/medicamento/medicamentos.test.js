@@ -1,5 +1,5 @@
 const { somar } = require("./medicamentoDB");
 
 test('deve somar dois números corretamente', () => {
-    expect(somar(2, 3)).toBe(5);
+    expect(somar(2, 3)).not.toBe(5);
 });

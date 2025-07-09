@@ -3,11 +3,15 @@ const path = require('path');
 const { getJanelaPrincipal } = require('./janelaPrincipal');
 
 let janelaMedicamento = null;
+let janelaCliente = null
+let janelaUsuario = null
+let janelaDistribuicao = null
 
 function criarJanelaModal(arquivohtml, telaPai) {
     const novaJanela = new BrowserWindow({
-        width: 1050,
-        height: 950,
+        width: 1620,
+        height: 980,
+        center: true,
         modal: true,
         parent: telaPai,
         resizable: false,
@@ -23,6 +27,7 @@ function criarJanelaModal(arquivohtml, telaPai) {
     return novaJanela;
 }
 
+//medicamento
 function modalAbrirMedicamento(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
@@ -44,15 +49,29 @@ function getJanelaMedicamento() {
     return janelaMedicamento;
 }
 
+//cliente
 function modalAbrirCliente(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/cliente/cliente.html', mainWindow);
+        janelaCliente = criarJanelaModal('./src/cliente/cliente.html', mainWindow);
     } else {
         console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
 }
 
+function abrirDadosCliente(event) {
+    if (janelaCliente) {
+        criarJanelaModal('./src/cliente/clienteDados.html', janelaCliente)
+    } else {
+        console.warn('Não foi possível abrir a modal de detalhes: janelaMedicamento não está definida.')
+    }
+}
+
+function getJanelaCliente() {
+    return janelaCliente
+}
+
+//usuario
 function modalAbrirUsuario(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
@@ -62,6 +81,7 @@ function modalAbrirUsuario(event) {
     }
 }
 
+//distribuicao
 function modalAbrirDistribuicao(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
@@ -78,5 +98,7 @@ module.exports = {
     modalAbrirUsuario,
     modalAbrirDistribuicao,
     AbrirDadosMedicamento,
-    getJanelaMedicamento
+    getJanelaMedicamento,
+    abrirDadosCliente,
+    getJanelaCliente
 }

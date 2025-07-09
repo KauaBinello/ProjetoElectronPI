@@ -100,6 +100,9 @@ function createMainWindowUser() {
 function abrirDadosMedicamento() {
     ipcRenderer.send('abrir-dados-medicamento');
 }
+function abrirDadosCliente() {
+    ipcRenderer.send('abrir-dados-cliente')
+}
 
 //caixas de dialogo
 function alertar(mensagem) {
@@ -154,7 +157,8 @@ contextBridge.exposeInMainWorld('janelaAPI',
         fecharLogin,
         abrirDistribuicao,
         createMainWindowUser,
-        abrirDadosMedicamento
+        abrirDadosMedicamento,
+        abrirDadosCliente
     }
 );
 

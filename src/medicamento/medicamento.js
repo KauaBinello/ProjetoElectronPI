@@ -1,4 +1,4 @@
-const cadastrarMedicamento = document.getElementById('cadastrar-medicamento')
+const cadastrarMedicamento = document.getElementById('cadastrar-novo')
 cadastrarMedicamento.addEventListener('click', cadastrarMedicamentoNovo)
 
 function cadastrarMedicamentoNovo() {

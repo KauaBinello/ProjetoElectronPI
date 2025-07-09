@@ -170,6 +170,7 @@ async function criarLinhaCliente(cliente) {
     botao.addEventListener('click',
         function () { mostrarDetalhes(cliente.id, cliente.nome, cliente.cpf, cliente.telefone, cliente.nascimento, cliente.endereco, cliente.numero_residencial, cliente.bairro, cliente.cidade, cliente.uf) }
     )
+    botao.addEventListener('click', await window.janelaAPI.abrirDadosCliente)
 
     const icone = document.createElement('i');
     icone.setAttribute('data-lucide', 'edit-2');

@@ -1,6 +1,6 @@
 const { ipcMain, dialog, BrowserWindow } = require('electron');
 
-const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario, modalAbrirDistribuicao, AbrirDadosMedicamento } = require('./janelaModal');
+const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario, modalAbrirDistribuicao, AbrirDadosMedicamento, abrirDadosCliente } = require('./janelaModal');
 const { createMainWindow, closeLoginWindow, createMainWindowUser } = require('./janelaPrincipal')
 
 const { getMedicamentos, getMedicamentoById, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
@@ -53,6 +53,7 @@ function registrarJanelas() {
     ipcMain.on('abrir-distribuicao', modalAbrirDistribuicao);
     ipcMain.on('abrir-janela-user', createMainWindowUser);
     ipcMain.on('abrir-dados-medicamento', AbrirDadosMedicamento)
+    ipcMain.on('abrir-dados-cliente', abrirDadosCliente)
 }
 
 function registrarValidacoes() {
