@@ -85,10 +85,18 @@ module.exports = {
     registrarListeners
 }
 
-ipcMain.on('item-atualizado', () => {
+ipcMain.on('medicamento-atualizado', () => {
     const { getJanelaMedicamento } = require('./janelaModal');
     const janela = getJanelaMedicamento();
     if (janela) {
-        janela.webContents.send('item-atualizado');
+        janela.webContents.send('medicamento-atualizado');
     }
 });
+
+ipcMain.on('cliente-atualizado', () => {
+    const { getJanelaCliente } = require('./janelaModal')
+    const janela = getJanelaCliente()
+    if (janela) {
+        janela.webContents.send('cliente-atualizado')
+    }
+})

@@ -1,107 +1,150 @@
-/* Reset base e tipografia moderna aprimorada */
+/* ==========================================================================
+   1. Variáveis Globais (Custom Properties)
+   ========================================================================== */
+:root {
+  /* Tipografia */
+  --font-family-sans: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-base: 1rem; /* 16px */
+  --line-height-base: 1.7;
+
+  /* Cores */
+  --color-primary: #4a76aa;
+  --color-primary-dark: #345c8c;
+  --color-text-base: #2a3b4c;
+  --color-text-heading: #2e4560;
+  --color-text-light: #ffffff;
+  --bg-body-start: #f0f6ff;
+  --bg-body-end: #e3eefc;
+  --bg-surface: #ffffff;
+  --bg-input-readonly: #f5f7fa;
+  --border-color: #c0d7eb;
+  --focus-ring-color: rgba(74, 118, 170, 0.15);
+
+  /* Bordas e Raios */
+  --border-radius-medium: 12px;
+  --border-radius-large: 16px;
+
+  /* Sombras */
+  --shadow-small: 0 6px 16px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 10px 24px rgba(0, 0, 0, 0.15);
+  --shadow-large: 0 10px 28px rgba(0, 0, 0, 0.12);
+
+  /* Transições */
+  --transition-smooth: all 0.3s ease;
+}
+
+/* ==========================================================================
+   2. Reset e Estilos Base
+   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #2a3b4c;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  letter-spacing: 0.3px;
-  scroll-behavior: smooth;
 }
 
-body {
-  background: linear-gradient(145deg, #f0f6ff, #e3eefc);
-  padding: 32px;
-  min-height: 100vh;
-  font-size: 16px;
-  line-height: 1.75;
-  overflow-x: hidden;
+html {
+  scroll-behavior: smooth;
   color-scheme: light;
 }
 
-/* Modal container */
-#modal {
-  background: #fff;
-  border-radius: 16px;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 28px 32px;
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+body {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text-base);
+  background: linear-gradient(145deg, var(--bg-body-start), var(--bg-body-end));
+  min-height: 100vh;
+  padding: 2rem; /* 32px */
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Modal heading */
+/* ==========================================================================
+   3. Componentes (Modal, Formulários, Botões)
+   ========================================================================== */
+
+/* Container do Modal */
+#modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem; /* 18px */
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 1.75rem 2rem; /* 28px 32px */
+  background: var(--bg-surface);
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-large);
+}
+
+/* Título do Modal */
 #modal h3 {
-  color: #2e4560;
+  color: var(--color-text-heading);
   font-weight: 700;
-  font-size: 22px;
-  margin-bottom: 12px;
+  font-size: 1.375rem; /* 22px */
+  margin-bottom: 0.75rem; /* 12px */
   text-align: center;
 }
 
-/* Labels com inputs alinhados verticalmente */
+/* Labels */
 label {
   display: flex;
   flex-direction: column;
+  gap: 0.375rem; /* 6px */
   font-weight: 600;
-  font-size: 15px;
-  color: #345c8c;
-  gap: 6px;
+  font-size: 0.9375rem; /* 15px */
+  color: var(--color-primary-dark);
 }
 
-/* Inputs text e number e date */
+/* Inputs (Texto, Número, Data) */
 input[type="text"],
 input[type="number"],
 input[type="date"] {
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1.5px solid #c0d7eb;
-  border-radius: 12px;
-  background-color: #fff;
+  padding: 0.75rem 1rem; /* 12px 16px */
+  font-size: var(--font-size-base);
+  color: var(--color-text-base);
+  background-color: var(--bg-surface);
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--border-radius-medium);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  color: #2a3b4c;
 }
 
 input[readonly] {
-  background-color: #f5f7fa;
+  background-color: var(--bg-input-readonly);
   cursor: not-allowed;
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus {
-  border-color: #4a76aa;
   outline: none;
-  box-shadow: 0 0 0 5px rgba(74, 118, 170, 0.15);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 5px var(--focus-ring-color);
 }
 
-/* Botões no modal */
+/* Botões base */
 button {
-  border: none;
-  background: linear-gradient(135deg, #4a76aa, #345c8c);
-  color: #fff;
-  padding: 14px 87px;
-  font-size: 15.5px;
-  font-weight: 600;
-  border-radius: 14px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 0.5rem; /* 8px */
+  padding: 0.875rem 5.4375rem; /* 14px 87px */
+  font-size: 0.97rem; /* ~15.5px */
+  font-weight: 600;
+  color: var(--color-text-light);
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  border: none;
+  border-radius: 14px;
+  box-shadow: var(--shadow-small);
+  cursor: pointer;
+  transition: var(--transition-smooth);
 }
 
 button:hover {
   background: linear-gradient(135deg, #3a6390, #2b4c75);
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-medium);
 }
 
 button:active {
@@ -113,72 +156,82 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-/* Botões agrupados */
+/* Container dos botões de ação */
 .modal-actions {
   display: flex;
-  gap: 16px;
   justify-content: center;
-  margin-top: 10px;
+  gap: 1rem; /* 16px */
+  margin-top: 0.625rem; /* 10px */
 }
 
-/* Botão limpar com ícone maior */
+/* Botão específico "Limpar" */
 #btn-limpar {
   align-self: flex-end;
-  background: #e3eefc;
-  color: #345c8c;
-  padding: 14px 87px;
-  border-radius: 12px;
+  padding: 0.875rem 5.4375rem; /* 14px 87px */
+  background: var(--bg-body-end);
+  color: var(--color-primary-dark);
+  border-radius: var(--border-radius-medium);
   box-shadow: none;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  margin-bottom: -8px;
-  margin-top: -12px;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  margin-bottom: -0.5rem; /* -8px */
+  margin-top: -0.75rem; /* -12px */
 }
 
 #btn-limpar:hover {
-  background: #4a76aa;
-  color: #fff;
+  background: var(--color-primary);
+  color: var(--color-text-light);
   transform: translateY(-2px);
 }
 
-
-#btn-limpar i[data-lucide] {
-  stroke-width: 2.5;
-  width: 22px;
-  height: 22px;
-}
-
-/* Ícones Lucide dentro dos botões */
+/* Ícones */
 button i[data-lucide] {
-  stroke: #fff;
-  width: 20px;
-  height: 20px;
+  stroke: var(--color-text-light);
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
   transition: transform 0.2s ease, stroke 0.2s ease;
 }
 
 button:hover i[data-lucide] {
-  stroke: #c0d7eb;
+  stroke: var(--border-color);
   transform: scale(1.1);
-  cursor: pointer;
 }
 
-/* Responsividade */
+#btn-limpar i[data-lucide] {
+  stroke-width: 2.5;
+  width: 1.375rem; /* 22px */
+  height: 1.375rem; /* 22px */
+}
+
+#btn-limpar:hover i[data-lucide] {
+  stroke: var(--color-text-light); /* Garante que o ícone fique branco no hover */
+}
+
+/* ==========================================================================
+   4. Responsividade
+   ========================================================================== */
 @media (max-width: 480px) {
   #modal {
-    padding: 24px 20px;
+    padding: 1.5rem 1.25rem; /* 24px 20px */
   }
 
   input[type="text"],
   input[type="number"],
   input[type="date"] {
-    font-size: 14.5px;
+    font-size: 0.9rem; /* ~14.5px */
   }
 
   button {
-    padding: 12px 20px;
-    font-size: 14px;
+    width: 100%; /* Faz os botões ocuparem toda a largura */
+    padding: 0.75rem 1.25rem; /* 12px 20px */
+    font-size: 0.875rem; /* 14px */
   }
 
   #btn-limpar {
-    padding: 8px 12px;
+    width: auto; /* Permite que o botão de limpar não ocupe 100% */
+    padding: 0.5rem 0.75rem; /* 8px 12px */
+  }
+  
+  .modal-actions {
+    flex-direction: column; /* Empilha os botões de ação */
   }
 }

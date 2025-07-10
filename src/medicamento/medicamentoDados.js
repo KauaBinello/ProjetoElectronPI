@@ -15,7 +15,6 @@ botaoSalvar.addEventListener('click', salvarMedicamento);
 botaoDeletar.addEventListener('click', deletarMedicamento);
 
 function limparCamposMedicamento() {
-    modalIdMedicamento.value = '';
     modalNomeMedicamento.value = '';
     modalEmbalagemMedicamento.value = '';
     modalSaldoMedicamento.value = '';

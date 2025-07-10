@@ -20,7 +20,6 @@ botaoSalvar.addEventListener('click', salvarCliente);
 botaoDeletar.addEventListener('click', deletarCliente);
 
 function limparCamposCliente() {
-    modalIdcliente.value = ``
     modalNomeCliente.value = ``
     modalCpfCliente.value = ``
     modalTelefoneCliente.value = ``
@@ -52,19 +51,19 @@ async function salvarCliente() {
         limparCamposCliente();
         return;
     }
-    if (cpfExiste) {
-        await window.dialogAPI.alertar('Cliente com este CPF já cadastrado.')
-        return;
-    }
-    if (telefoneExiste) {
-        await window.dialogAPI.alertar('Cliente com este telefone já cadastrado.')
-        return;
-    }
     if (new Date(nascimento) >= new Date()) {
         await window.dialogAPI.alertar('Data de nascimento deve ser anterior a hoje.');
         return;
     }
     if (id === '') {
+        if (cpfExiste) {
+            await window.dialogAPI.alertar('Cliente com este CPF já cadastrado.')
+            return;
+        }
+        if (telefoneExiste) {
+            await window.dialogAPI.alertar('Cliente com este telefone já cadastrado.')
+            return;
+        }
         await window.projetoAPI.adicionarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf.toUpperCase());
         await window.dialogAPI.alertar('Cliente cadastrado com sucesso')
     } else {
