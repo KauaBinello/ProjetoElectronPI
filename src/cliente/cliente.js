@@ -6,6 +6,10 @@ function cadastrarClienteNovo() {
     window.janelaAPI.abrirDadosCliente()
 }
 
+window.comunicacaoAPI.escutarAtualizacao(() => {
+    carregarClientes(); // Atualiza a lista
+});
+
 const tabelaCliente = document.getElementById('clientesTableDados')
 
 let lista = []

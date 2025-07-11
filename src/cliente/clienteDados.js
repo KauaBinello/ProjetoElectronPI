@@ -70,7 +70,7 @@ async function salvarCliente() {
         await window.projetoAPI.atualizarCliente(nome, cpf, telefone, nascimento, endereco, numero_residencial, bairro, cidade, uf, id.toUpperCase());
         await window.dialogAPI.alertar('Cliente atualizado com sucesso')
     }
-    carregarClientes();
+    window.comunicacaoAPI.notificarAtualizacao();
     limparCamposCliente();
 }
 
@@ -84,7 +84,7 @@ async function deletarCliente() {
         await window.projetoAPI.deletarCliente(id);
         await window.dialogAPI.alertar('Cliente deletado com sucesso')
     }
-    carregarClientes();
+    window.comunicacaoAPI.notificarAtualizacao();
     limparCamposCliente();
 }
 

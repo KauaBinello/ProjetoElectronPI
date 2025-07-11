@@ -7,7 +7,7 @@ function cadastrarMedicamentoNovo() {
 }
 
 window.comunicacaoAPI.escutarAtualizacao(() => {
-    carregarMedicamentos(); // Atualiza a lista
+  carregarMedicamentos();
 });
 
 const tabelaMedicamento = document.getElementById('medicamentosTableDados');

@@ -13,6 +13,8 @@ const { validaCliente, validaMedicamento, validaTelefone, validaUsuario, validaE
 
 const { mostrarAlerta, mostrarConfirm } = require('./dialogs/dialogs')
 
+const { notificarMedicamentoAtualizado } = require('./utils/notificador');
+
 function registrarMedicamentosListeners() {
     ipcMain.handle('get-medicamento', getMedicamentos);
     ipcMain.handle('adicionar-medicamento', adicionarMedicamento);
@@ -70,6 +72,12 @@ function registrarDialogs() {
     ipcMain.handle('mostrar-confirm', mostrarConfirm)
 }
 
+function registrarNotificadores() {
+    ipcMain.on('medicamento-atualizado', () => {
+        notificarMedicamentoAtualizado();
+    });
+}
+
 function registrarListeners() {
     registrarMedicamentosListeners();
     registrarClientesListeners();
@@ -79,13 +87,14 @@ function registrarListeners() {
     registrarDistribuicoesListeners();
     registrarDialogs();
     registrarValidacoes();
+    registrarNotificadores();
 }
 
 module.exports = {
     registrarListeners
 }
 
-ipcMain.on('medicamento-atualizado', () => {
+/*ipcMain.on('medicamento-atualizado', () => {
     const { getJanelaMedicamento } = require('./janelaModal');
     const janela = getJanelaMedicamento();
     if (janela) {
@@ -99,4 +108,4 @@ ipcMain.on('cliente-atualizado', () => {
     if (janela) {
         janela.webContents.send('cliente-atualizado')
     }
-})
+})*/
