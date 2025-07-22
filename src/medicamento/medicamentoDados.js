@@ -72,7 +72,8 @@ async function salvarMedicamento() {
         await window.projetoAPI.atualizarMedicamento(nome, embalagem, saldo, validade, id);
         await window.dialogAPI.alertar('Medicamento atualizado com sucesso');
     }
-    window.comunicacaoAPI.notificarAtualizacao();
+    window.comunicacaoAPI.notificarAtualizacao('medicamento');
+
     limparCamposMedicamento();
 }
 
@@ -86,7 +87,7 @@ async function deletarMedicamento() {
         await window.projetoAPI.deletarMedicamento(id);
         await window.dialogAPI.alertar('Medicamento excluído com sucesso');
 
-        window.comunicacaoAPI.notificarAtualizacao();
+        window.comunicacaoAPI.notificarAtualizacao('medicamento');
         limparCamposMedicamento();
     }
 }

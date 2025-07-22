@@ -75,30 +75,63 @@ function getJanelaCliente() {
 function modalAbrirUsuario(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/usuario/usuario.html', mainWindow);
+        janelaUsuario = criarJanelaModal('./src/usuario/usuario.html', mainWindow);
     } else {
         console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
+}
+
+function abrirDadosUsuario(event) {
+    if (janelaUsuario) {
+        criarJanelaModal('./src/usuario/usuarioDados.html', janelaUsuario);
+    } else {
+        console.warn('Não foi possível abrir a modal de detalhes: janelaUsuario não está definida.');
+    }
+}
+
+function getJanelaUsuario() {
+    return janelaUsuario;
 }
 
 //distribuicao
 function modalAbrirDistribuicao(event) {
     let mainWindow = getJanelaPrincipal();
     if (mainWindow) {
-        criarJanelaModal('./src/distribuicao/distribuicao.html', mainWindow);
+        janelaDistribuicao = criarJanelaModal('./src/distribuicao/distribuicao.html', mainWindow);
     } else {
         console.warn('Não foi possível abrir a modal: Janela principal não encontrada.');
     }
 }
 
+function abrirDadosDistribuicao(event) {
+    if (janelaDistribuicao) {
+        criarJanelaModal('./src/distribuicao/distribuicaoDados.html', janelaDistribuicao);
+    } else {
+        console.warn('Não foi possível abrir a modal de detalhes: janelaDistribuicao não está definida.');
+    }
+}
+
+function getJanelaDistribuicao() {
+    return janelaDistribuicao;
+}
+
 module.exports = {
     criarJanelaModal,
+
     modalAbrirMedicamento,
     modalAbrirCliente,
     modalAbrirUsuario,
     modalAbrirDistribuicao,
+
     AbrirDadosMedicamento,
     getJanelaMedicamento,
+
     abrirDadosCliente,
-    getJanelaCliente
+    getJanelaCliente,
+
+    abrirDadosUsuario,
+    getJanelaUsuario,
+
+    abrirDadosDistribuicao,
+    getJanelaDistribuicao
 }

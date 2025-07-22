@@ -6,19 +6,9 @@ function cadastrarMedicamentoNovo() {
     window.janelaAPI.abrirDadosMedicamento()
 }
 
-window.comunicacaoAPI.escutarAtualizacao(() => {
-  carregarMedicamentos();
-});
+window.comunicacaoAPI.escutarAtualizacao('medicamento', carregarMedicamentos);
 
 const tabelaMedicamento = document.getElementById('medicamentosTableDados');
-
-function mostrarDetalhes(id, nome, embalagem, saldo, validade) {
-    modalIdMedicamento.value = id;
-    modalNomeMedicamento.value = nome;
-    modalEmbalagemMedicamento.value = embalagem;
-    modalSaldoMedicamento.value = saldo;
-    modalValidadeMedicamento.value = validade
-}
 
 let lista = [];
 

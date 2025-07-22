@@ -1,84 +1,14 @@
 const tabelaUsuario = document.getElementById('usuariosTableDados');
-const modalIdUsuario = document.getElementById('usuario-id');
-const modalNomeUsuario = document.getElementById('usuario-nome');
-const modalEmailUsuario = document.getElementById('usuario-email');
-const modalLoginUsuario = document.getElementById('usuario-login');
-const modalSenhaUsuario = document.getElementById('usuario-senha');
-const modalPerfilUsuario = document.getElementById('usuario-perfil')
+const cadastrarUsuario = document.getElementById('cadastrar-novo')
 
-const botaoSalvar = document.getElementById('btn-salvar');
-const botaoDeletar = document.getElementById('btn-deletar');
-const botaoLimpar = document.getElementById('btn-limpar');
+window.comunicacaoAPI.escutarAtualizacao('usuario', carregarUsuarios);
 
-botaoLimpar.addEventListener('click', limparCamposUsuario);
-botaoSalvar.addEventListener('click', salvarUsuario);
-botaoDeletar.addEventListener('click', deletarUsuario);
+cadastrarUsuario.addEventListener('click', () => {
+    localStorage.setItem('usuarioId', '');
+    window.janelaAPI.abrirDadosUsuario();
+});
 
 let lista = [];
-
-function limparCamposUsuario() {
-    mostrarDetalhes('', '', '', '', '', '')
-}
-
-async function salvarUsuario() {
-    const id = modalIdUsuario.value;
-    const nome = modalNomeUsuario.value;
-    const email = modalEmailUsuario.value;
-    const login = modalLoginUsuario.value;
-    const senha = modalSenhaUsuario.value;
-    const perfil = modalPerfilUsuario.value
-    if (!nome || !email || !login || !senha || !perfil) {
-        await window.dialogAPI.alertar('Por favor! preencha todos os campos')
-        return;
-    }
-    const emailExiste = await window.projetoAPI.validaEmail(email);
-    const loginExiste = await window.projetoAPI.validaUsuario(login);
-
-    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-        await window.dialogAPI.alertar('Email inválido. Por favor, insira um email válido.');
-        return;
-    }
-    if (id === '') {
-        if (emailExiste) {
-            await window.dialogAPI.alertar('Já existe um usuário cadastrado com este email.');
-            return;
-        }
-        if (loginExiste) {
-            await window.dialogAPI.alertar('Já existe um usuário cadastrado com este login.');
-            return;
-        }
-        await window.projetoAPI.adicionarUsuario(nome, email, login, senha, perfil);
-        await window.dialogAPI.alertar('Usuário cadastrado com sucesso');
-    } else {
-        await window.projetoAPI.atualizarUsuario(nome, email, login, senha, perfil, id);
-        await window.dialogAPI.alertar('Usuário atualizado com sucesso');
-    }
-    carregarUsuarios();
-    limparCamposUsuario();
-}
-
-async function deletarUsuario() {
-    const id = modalIdUsuario.value;
-    if (!id) {
-        await window.dialogAPI.alertar('Por favor, selecione um usuário para excluir.');
-        return;
-    }
-    if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar o usuário?')) {
-        await window.projetoAPI.deletarUsuario(id);
-        await window.dialogAPI.alertar('Usuário deletado com sucesso');
-    }
-    carregarUsuarios();
-    limparCamposUsuario();
-}
-
-function mostrarDetalhes(id, nome, email, login, senha, perfil) {
-    modalIdUsuario.value = id;
-    modalNomeUsuario.value = nome
-    modalEmailUsuario.value = email;
-    modalLoginUsuario.value = login;
-    modalSenhaUsuario.value = senha;
-    modalPerfilUsuario.value = perfil;
-}
 
 async function carregarUsuarios() {
     lista = await window.projetoAPI.getUsuarios();
@@ -131,11 +61,10 @@ async function criarLinhaUsuario(usuario) {
     const celulaBotao = document.createElement('td')
 
     const botao = document.createElement('button')
-    botao.addEventListener('click',
-        function () {
-            mostrarDetalhes(usuario.id, usuario.nome, usuario.email, usuario.login, usuario.senha, usuario.perfil)
-        }
-    )
+    botao.addEventListener('click', () => {
+        window.janelaAPI.abrirDadosUsuario();
+        localStorage.setItem('usuarioId', usuario.id);
+    });
 
     const icone = document.createElement('i');
     icone.setAttribute('data-lucide', 'edit-2');

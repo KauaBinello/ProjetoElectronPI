@@ -1,11 +1,11 @@
 const { ipcMain } = require('electron');
 
-const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario, modalAbrirDistribuicao, AbrirDadosMedicamento, abrirDadosCliente } = require('./janelaModal');
+const { modalAbrirMedicamento, modalAbrirCliente, modalAbrirUsuario, modalAbrirDistribuicao, AbrirDadosMedicamento, abrirDadosCliente, getJanelaCliente, getJanelaMedicamento, abrirDadosUsuario, getJanelaUsuario, abrirDadosDistribuicao, getJanelaDistribuicao } = require('./janelaModal');
 const { createMainWindow, closeLoginWindow, createMainWindowUser } = require('./janelaPrincipal')
 
 const { getMedicamentos, getMedicamentoById, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
 const { getClientes, getClienteById, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
-const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario } = require('./usuario/usuarioDB')
+const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario, getUsuarioById } = require('./usuario/usuarioDB')
 const { getDistribuicoes, adicionarDistribuicao } = require('./distribuicao/distribuicaoDB')
 
 const { validarLogin } = require('./login/loginDB')
@@ -13,7 +13,7 @@ const { validaCliente, validaMedicamento, validaTelefone, validaUsuario, validaE
 
 const { mostrarAlerta, mostrarConfirm } = require('./dialogs/dialogs')
 
-const { notificarMedicamentoAtualizado } = require('./utils/notificador');
+const { notificarAtualizacao } = require('./utils/notificador');
 
 function registrarMedicamentosListeners() {
     ipcMain.handle('get-medicamento', getMedicamentos);
@@ -36,6 +36,7 @@ function registrarUsuariosListeners() {
     ipcMain.handle('adicionar-usuario', adicionarUsuario);
     ipcMain.handle('atualizar-usuario', atualizarUsuario);
     ipcMain.handle('deletar-usuario', deletarUsuario)
+    ipcMain.handle('get-usuario-by-id', getUsuarioById);
 }
 
 function registrarDistribuicoesListeners() {
@@ -57,6 +58,8 @@ function registrarJanelas() {
     ipcMain.on('abrir-janela-user', createMainWindowUser);
     ipcMain.on('abrir-dados-medicamento', AbrirDadosMedicamento)
     ipcMain.on('abrir-dados-cliente', abrirDadosCliente)
+    ipcMain.on('abrir-dados-usuario', abrirDadosUsuario);
+    ipcMain.on('abrir-dados-distribuicao', abrirDadosDistribuicao);
 }
 
 function registrarValidacoes() {
@@ -74,7 +77,14 @@ function registrarDialogs() {
 
 function registrarNotificadores() {
     ipcMain.on('medicamento-atualizado', () => {
-        notificarMedicamentoAtualizado();
+        notificarAtualizacao('medicamento', getJanelaMedicamento);
+    });
+
+    ipcMain.on('cliente-atualizado', () => {
+        notificarAtualizacao('cliente', getJanelaCliente);
+    });
+    ipcMain.on('usuario-atualizado', () => {
+        notificarAtualizacao('usuario', getJanelaUsuario);
     });
 }
 
@@ -93,19 +103,3 @@ function registrarListeners() {
 module.exports = {
     registrarListeners
 }
-
-/*ipcMain.on('medicamento-atualizado', () => {
-    const { getJanelaMedicamento } = require('./janelaModal');
-    const janela = getJanelaMedicamento();
-    if (janela) {
-        janela.webContents.send('medicamento-atualizado');
-    }
-});
-
-ipcMain.on('cliente-atualizado', () => {
-    const { getJanelaCliente } = require('./janelaModal')
-    const janela = getJanelaCliente()
-    if (janela) {
-        janela.webContents.send('cliente-atualizado')
-    }
-})*/

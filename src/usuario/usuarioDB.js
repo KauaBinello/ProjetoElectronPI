@@ -5,6 +5,13 @@ async function getUsuarios() {
     return sql.rows
 }
 
+async function getUsuarioById(event, id) {
+    const sql = `SELECT usuarios.id, usuarios.nome, usuarios.email, usuarios.login, usuarios.senha, usuarios.perfil FROM pi.usuarios WHERE id = $1`
+    const values = [id]
+    const result = await db.query(sql, values)
+    return result.rows[0]
+}
+
 async function adicionarUsuario(event, nome, email, login, senha, perfil) {
     const sql = `INSERT INTO pi.usuarios(
 	nome, email, login, senha, perfil)
@@ -29,5 +36,6 @@ module.exports = {
     getUsuarios,
     adicionarUsuario,
     atualizarUsuario,
-    deletarUsuario
+    deletarUsuario,
+    getUsuarioById
 }

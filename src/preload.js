@@ -47,6 +47,9 @@ async function atualizarUsuario(nome, email, login, senha, perfil, id) {
 async function deletarUsuario(id) {
     return ipcRenderer.invoke('deletar-usuario', id)
 }
+async function getUsuarioById(id) {
+    return ipcRenderer.invoke('get-usuario-by-id', id)
+}
 
 // distribuição
 async function getDistribuicoes() {
@@ -106,6 +109,12 @@ function abrirDadosMedicamento() {
 function abrirDadosCliente() {
     ipcRenderer.send('abrir-dados-cliente')
 }
+function abrirDadosUsuario() {
+    ipcRenderer.send('abrir-dados-usuario');
+}
+function abrirDadosDistribuicao() {
+    ipcRenderer.send('abrir-dados-distribuicao');
+}
 
 //caixas de dialogo
 function alertar(mensagem) {
@@ -134,6 +143,7 @@ contextBridge.exposeInMainWorld('projetoAPI',
         adicionarUsuario,
         atualizarUsuario,
         deletarUsuario,
+        getUsuarioById,
 
         validarLogin,
 
@@ -162,19 +172,13 @@ contextBridge.exposeInMainWorld('janelaAPI',
         abrirDistribuicao,
         createMainWindowUser,
         abrirDadosMedicamento,
-        abrirDadosCliente
+        abrirDadosCliente,
+        abrirDadosUsuario,
+        abrirDadosDistribuicao
     }
 );
 
-/*contextBridge.exposeInMainWorld('comunicacaoAPI', {
-    notificarAtualizacao: () => ipcRenderer.send('medicamento-atualizado'),
-    escutarAtualizacao: (callback) => ipcRenderer.on('medicamento-atualizado', callback),
-
-    notificarAtualizacao: () => ipcRenderer.send('cliente-atualizado'),
-    escutarAtualizacao: (callback) => ipcRenderer.on('cliente-atualizado', callback)
-});*/
-
 contextBridge.exposeInMainWorld('comunicacaoAPI', {
-    notificarAtualizacao: () => ipcRenderer.send('medicamento-atualizado'),
-    escutarAtualizacao: (callback) => ipcRenderer.on('medicamento-atualizado', callback),
+    notificarAtualizacao: (canal) => ipcRenderer.send(`${canal}-atualizado`),
+    escutarAtualizacao: (canal, callback) => ipcRenderer.on(`${canal}-atualizado`, callback),
 });

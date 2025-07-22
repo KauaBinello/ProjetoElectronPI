@@ -146,7 +146,7 @@ thead {
 }
 
 thead th {
-  padding: 0.25rem; /* 20px */
+  padding: 1.25rem; /* 20px */
   font-size: 0.84rem; /* ~13.5px */
   color: var(--color-text-light);
   text-transform: uppercase;
