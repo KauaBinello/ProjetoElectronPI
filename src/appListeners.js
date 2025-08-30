@@ -6,7 +6,7 @@ const { createMainWindow, closeLoginWindow, createMainWindowUser } = require('./
 const { getMedicamentos, getMedicamentoById, adicionarMedicamento, atualizarMedicamento, deletarMedicamento } = require('./medicamento/medicamentoDB');
 const { getClientes, getClienteById, adicionarCliente, atualizarCliente, deletarCliente } = require('./cliente/clienteDB')
 const { getUsuarios, adicionarUsuario, atualizarUsuario, deletarUsuario, getUsuarioById } = require('./usuario/usuarioDB')
-const { getDistribuicoes, adicionarDistribuicao } = require('./distribuicao/distribuicaoDB')
+const { getDistribuicoes, adicionarDistribuicao, getDistribuicaoById } = require('./distribuicao/distribuicaoDB')
 
 const { validarLogin } = require('./login/loginDB')
 const { validaCliente, validaMedicamento, validaTelefone, validaUsuario, validaEmail } = require('./validacoes/validacoesDB')
@@ -42,6 +42,7 @@ function registrarUsuariosListeners() {
 function registrarDistribuicoesListeners() {
     ipcMain.handle('get-distribuicao', getDistribuicoes);
     ipcMain.handle(`adicionar-distribuicao`, adicionarDistribuicao);
+    ipcMain.handle('get-distribuicao-by-id', getDistribuicaoById);
 }
 
 function registrarLoginListeners() {

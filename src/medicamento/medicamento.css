@@ -63,7 +63,7 @@ button {
   align-items: center;
   justify-content: center;
   gap: 8px; /* antes 10px */
-  padding: 12px 24px; /* antes 14px 28px */
+  padding: 10px 20px; /* antes 14px 28px */
   font-size: 14px; /* antes 15.5px */
   font-weight: 600;
   color: var(--color-text-light);
@@ -147,11 +147,12 @@ thead th {
 
 th,
 td {
-  padding: 14px 18px; /* antes 18px 22px */
-  font-size: 14px; /* antes 15.5px */
+  padding: 10px 14px; /* reduzido para menos área */
+  font-size: 13px;
   vertical-align: middle;
   text-align: left;
   border-bottom: 1px solid var(--border-table);
+  min-height: 32px; /* altura mínima menor */
   transition: background-color 0.25s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -182,6 +183,19 @@ i[data-lucide]:hover {
   cursor: pointer;
 }
 
+/* Ajuste dos botões dentro das linhas da tabela */
+td button {
+  padding: 6px 12px;
+  font-size: 12px;
+  min-width: 24px;
+  min-height: 20px;
+}
+
+td i[data-lucide] {
+  width: 16px;
+  height: 16px;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
   body {
@@ -191,18 +205,19 @@ i[data-lucide]:hover {
   thead th,
   th,
   td {
-    padding: 12px; /* antes 14px */
-    font-size: 13px; /* antes 14.5px */
+    padding: 8px;
+    font-size: 12px;
+    min-height: 24px;
   }
-
-  button {
-    padding: 10px 20px; /* antes 12px 22px */
-    font-size: 13px; /* antes 14px */
+  td button {
+    padding: 5px 8px;
+    font-size: 11px;
+    min-width: 18px;
+    min-height: 16px;
   }
-
-  i[data-lucide] {
-    width: 18px; /* antes 20px */
-    height: 18px; /* antes 20px */
+  td i[data-lucide] {
+    width: 12px;
+    height: 12px;
   }
 }
 
@@ -214,10 +229,18 @@ i[data-lucide]:hover {
 
   th,
   td {
-    font-size: 12px; /* antes 13.5px */
+    font-size: 11px;
+    padding: 6px;
+    min-height: 18px;
   }
-
-  #table {
-    font-size: 14px; /* antes 16px */
+  td button {
+    padding: 4px 6px;
+    font-size: 10px;
+    min-width: 12px;
+    min-height: 10px;
+  }
+  td i[data-lucide] {
+    width: 10px;
+    height: 10px;
   }
 }

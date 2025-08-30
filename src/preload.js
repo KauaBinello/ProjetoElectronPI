@@ -58,6 +58,9 @@ async function getDistribuicoes() {
 async function adicionarDistribuicao(medicamento_id, quantidade, saida, usuarioId, cliente_id) {
     return ipcRenderer.invoke('adicionar-distribuicao', medicamento_id, quantidade, saida, usuarioId, cliente_id)
 }
+async function getDistribuicaoById(id) {
+    return ipcRenderer.invoke('get-distribuicao-by-id', id);
+}
 
 // validações
 async function validaCliente(cpf) {
@@ -149,6 +152,7 @@ contextBridge.exposeInMainWorld('projetoAPI',
 
         getDistribuicoes,
         adicionarDistribuicao,
+        getDistribuicaoById,
 
         validaCliente,
         validaMedicamento,
