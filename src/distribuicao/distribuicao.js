@@ -7,8 +7,6 @@ function cadastrarDistribuicao() {
     localStorage.setItem('serial', '')
     window.janelaAPI.abrirDadosDistribuicao()
 }
-const idLocalUser = localStorage.getItem('id')
-const perfilLocalUser = localStorage.getItem('perfil')
 
 let lista = [];
 

@@ -1,5 +1,3 @@
-lucide.createIcons()
-
 const modalIdcliente = document.getElementById('cliente-id')
 const modalNomeCliente = document.getElementById('cliente-nome')
 const modalCpfCliente = document.getElementById('cliente-cpf')
@@ -89,6 +87,8 @@ async function deletarCliente() {
 }
 
 async function mostrarDetalhes() {
+
+    lucide.createIcons()
     const id = localStorage.getItem(`clienteId`)
 
     if (id === '') {

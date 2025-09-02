@@ -10,6 +10,9 @@ const botaoLimpar = document.getElementById('btn-limpar');
 botaoSalvar.addEventListener(`click`, adicionarDistribuicao)
 botaoLimpar.addEventListener(`click`, limparCampos)
 
+const idLocalUser = localStorage.getItem('id')
+const perfilLocalUser = localStorage.getItem('perfil')
+
 function limparCampos() {
     modalNomeMedicamento.value = ``
     modalQuantidade.value = ``
@@ -36,8 +39,6 @@ async function adicionarDistribuicao() {
     const quantidade = parseInt(modalQuantidade.value)
     const saldo = parseInt(medicamento.saldo)
 
-    console.log(saldo, quantidade)
-
     if (isNaN(quantidade) || quantidade <= 0) {
         await window.dialogAPI.alertar('Quantidade deve ser maior que zero.');
         return;
@@ -57,11 +58,12 @@ async function adicionarDistribuicao() {
     const usuarioId = idLocalUser
 
     await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
-    carregarDistribuicoes()
     limparCampos()
 }
 
 async function mostrarDetalhes() {
+
+    lucide.createIcons()
     const serial = localStorage.getItem('serial')
 
     if (serial === '') {
