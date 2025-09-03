@@ -1,3 +1,4 @@
+const modalSerial = document.getElementById('distribuicao-id');
 const modalCpfCliente = document.getElementById('distribuicao-cliente');
 const modalNomeMedicamento = document.getElementById('distribuicao-medicamento');
 const modalQuantidade = document.getElementById('distribuicao-quantidade');
@@ -9,11 +10,12 @@ const botaoLimpar = document.getElementById('btn-limpar');
 
 botaoSalvar.addEventListener(`click`, adicionarDistribuicao)
 botaoLimpar.addEventListener(`click`, limparCampos)
+botaoDeletar.addEventListener(`click`, deletarDistribuicao)
 
 const idLocalUser = localStorage.getItem('id')
-const perfilLocalUser = localStorage.getItem('perfil')
 
 function limparCampos() {
+    modalSerial.value = ``
     modalNomeMedicamento.value = ``
     modalQuantidade.value = ``
     modalCpfCliente.value = ``
@@ -21,6 +23,14 @@ function limparCampos() {
 
 async function adicionarDistribuicao() {
     const cpfCliente = modalCpfCliente.value
+    const nomeMedicamento = modalNomeMedicamento.value
+    const quantidade = parseInt(modalQuantidade.value)
+
+    if (!cpfCliente || !nomeMedicamento || !quantidade) {
+        await window.dialogAPI.alertar('Por favor, preencha todos os campos.');
+        return;
+    }
+
     const cliente = await window.projetoAPI.validaCliente(cpfCliente)
     if (!cliente) {
         await window.dialogAPI.alertar('Cliente não encontrado. Verifique o CPF e tente novamente.');
@@ -28,7 +38,6 @@ async function adicionarDistribuicao() {
     }
     const clienteId = cliente.id
 
-    const nomeMedicamento = modalNomeMedicamento.value
     const medicamento = await window.projetoAPI.validaMedicamento(nomeMedicamento)
 
     if (!medicamento) {
@@ -36,7 +45,6 @@ async function adicionarDistribuicao() {
         return;
     }
 
-    const quantidade = parseInt(modalQuantidade.value)
     const saldo = parseInt(medicamento.saldo)
 
     if (isNaN(quantidade) || quantidade <= 0) {
@@ -56,9 +64,31 @@ async function adicionarDistribuicao() {
     const saida = new Date()
 
     const usuarioId = idLocalUser
+    const serial = modalSerial.value
 
-    await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
-    limparCampos()
+
+    if (!serial) {
+        await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
+        await window.dialogAPI.alertar('Distribuição cadastrada com sucesso.');
+        limparCampos()
+    } else {
+        await window.projetoAPI.atualizarDistribuicao(clienteId, medicamentoId, quantidade, serial)
+        await window.dialogAPI.alertar('Distribuição atualizada com sucesso.');
+        limparCampos()
+    }
+}
+
+async function deletarDistribuicao() {
+    const serial = modalSerial.value;
+
+    if (!serial) {
+        await window.dialogAPI.alertar('Por favor, selecione uma distribuição.');
+        return;
+    } if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar esta distribuição?')) {
+        await window.projetoAPI.deletarDistribuicao(serial);
+        await window.dialogAPI.alertar('Distribuição deletada com sucesso.');
+        limparCampos();
+    }
 }
 
 async function mostrarDetalhes() {
@@ -67,12 +97,14 @@ async function mostrarDetalhes() {
     const serial = localStorage.getItem('serial')
 
     if (serial === '') {
+        modalSerial.value = ''
         modalCpfCliente.value = ''
         modalNomeMedicamento.value = ''
         modalQuantidade.value = ''
     } else {
         const dados = await window.projetoAPI.getDistribuicaoById(serial);
 
+        modalSerial.value = dados.serial;
         modalCpfCliente.value = dados.cliente_cpf;
         modalNomeMedicamento.value = dados.medicamento_nome;
         modalQuantidade.value = dados.quantidade;

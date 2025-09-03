@@ -16,8 +16,19 @@ TO_CHAR(distribuicoes.saida, 'DD/MM/YYYY') AS saida
 FROM pi.distribuicoes
 JOIN pi.clientes ON distribuicoes.cliente_id = clientes.id
 JOIN pi.medicamentos ON distribuicoes.medicamento_id = medicamentos.id
-JOIN pi.usuarios ON distribuicoes.usuario_id = usuarios.id`);
+JOIN pi.usuarios ON distribuicoes.usuario_id = usuarios.id ORDER BY distribuicoes.saida DESC`);
     return result.rows;
+}
+
+async function atualizarDistribuicao(event, clienteId, medicamentoId, quantidade, serial) {
+    const sql = `UPDATE pi.distribuicoes SET cliente_id = $1, medicamento_id = $2, quantidade = $3 WHERE serial = $4`
+    const values = [clienteId, medicamentoId, quantidade, serial]
+    await db.query(sql, values)
+}
+
+async function deletarDistribuicao(event, serial) {
+    const sql = `DELETE FROM pi.distribuicoes WHERE serial = $1`
+    await db.query(sql, [serial])
 }
 
 async function getDistribuicaoById(event, serial) {
@@ -54,5 +65,7 @@ async function adicionarDistribuicao(event, medicamento_id, quantidade, saida, u
 module.exports = {
     getDistribuicoes,
     adicionarDistribuicao,
-    getDistribuicaoById
+    getDistribuicaoById,
+    atualizarDistribuicao,
+    deletarDistribuicao
 }

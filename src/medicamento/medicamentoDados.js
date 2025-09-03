@@ -53,8 +53,8 @@ async function salvarMedicamento() {
         await window.dialogAPI.alertar('Por favor. preencha os campos.');
         return;
     }
-    if (parseInt(saldo) <= 0) {
-        await window.dialogAPI.alertar('Saldo deve ser maior que zero.');
+    if (parseInt(saldo) < 0) {
+        await window.dialogAPI.alertar('Saldo inválido.');
         return;
     }
     if (new Date(validade) < new Date()) {
