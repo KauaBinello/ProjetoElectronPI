@@ -70,12 +70,12 @@ async function adicionarDistribuicao() {
     if (!serial) {
         await window.projetoAPI.adicionarDistribuicao(medicamentoId, quantidade, saida, usuarioId, clienteId)
         await window.dialogAPI.alertar('Distribuição cadastrada com sucesso.');
-        limparCampos()
     } else {
         await window.projetoAPI.atualizarDistribuicao(clienteId, medicamentoId, quantidade, serial)
         await window.dialogAPI.alertar('Distribuição atualizada com sucesso.');
-        limparCampos()
     }
+    window.comunicacaoAPI.notificarAtualizacao('distribuicao');
+    limparCampos()
 }
 
 async function deletarDistribuicao() {
@@ -87,6 +87,7 @@ async function deletarDistribuicao() {
     } if (await window.dialogAPI.confirmar('Tem certeza que deseja deletar esta distribuição?')) {
         await window.projetoAPI.deletarDistribuicao(serial);
         await window.dialogAPI.alertar('Distribuição deletada com sucesso.');
+        window.comunicacaoAPI.notificarAtualizacao('distribuicao');
         limparCampos();
     }
 }

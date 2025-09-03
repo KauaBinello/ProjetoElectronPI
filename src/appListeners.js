@@ -89,6 +89,9 @@ function registrarNotificadores() {
     ipcMain.on('usuario-atualizado', () => {
         notificarAtualizacao('usuario', getJanelaUsuario);
     });
+    ipcMain.on('distribuicao-atualizada', () => {
+        notificarAtualizacao('distribuicao', getJanelaDistribuicao);
+    });
 }
 
 function registrarListeners() {

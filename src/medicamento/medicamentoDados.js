@@ -86,7 +86,7 @@ async function deletarMedicamento() {
     if (await window.dialogAPI.confirmar('Tem certeza que deseja excluir o medicamento?')) {
         await window.projetoAPI.deletarMedicamento(id);
         await window.dialogAPI.alertar('Medicamento excluído com sucesso');
-
+        
         window.comunicacaoAPI.notificarAtualizacao('medicamento');
         limparCamposMedicamento();
     }

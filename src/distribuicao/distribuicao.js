@@ -8,6 +8,8 @@ function cadastrarDistribuicao() {
     window.janelaAPI.abrirDadosDistribuicao()
 }
 
+window.comunicacaoAPI.escutarAtualizacao('distribuicao', carregarDistribuicoes);
+
 let lista = [];
 
 async function carregarDistribuicoes() {
