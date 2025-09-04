@@ -22,6 +22,7 @@ function criarJanelaModal(arquivohtml, telaPai) {
         }
     });
 
+    novaJanela.setMenu(null);
     novaJanela.loadFile(arquivohtml);
 
     return novaJanela;

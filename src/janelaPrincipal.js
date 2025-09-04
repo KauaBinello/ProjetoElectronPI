@@ -15,6 +15,8 @@ function createMainWindow() {
         }
     });
 
+    janelaPrincipal.setMenu(null);
+
     janelaPrincipal.loadFile('./src/index.html');
     janelaPrincipal.on('closed', () => {
         janelaPrincipal = null
@@ -37,6 +39,8 @@ function createMainWindowUser() {
         }
     });
 
+    janelaPrincipal.setMenu(null);
+
     janelaPrincipal.loadFile('./src/indexUser.html');
     janelaPrincipal.on('closed', () => {
         janelaPrincipal = null
@@ -58,6 +62,8 @@ function createLoginWindow() {
             preload: path.join(__dirname, 'preload.js')
         }
     })
+
+    janelaLogin.setMenu(null);
 
     janelaLogin.loadFile('./src/login/login.html');
 

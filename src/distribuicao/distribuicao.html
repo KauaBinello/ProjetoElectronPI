@@ -10,11 +10,14 @@
 </head>
 
 <body>
-    <input type="text" id="campo-pesquisa" placeholder="Buscar por cpf..." />
-    <p id="table"></p>
-    <button id="cadastrar-novo">
-        <i data-lucide="plus"></i>
-    </button>
+
+    <div class="toolbar-container">
+        <input type="text" id="campo-pesquisa" placeholder="Buscar por nome..." />
+        <button id="cadastrar-novo">
+            <i data-lucide="plus"></i>
+        </button>
+    </div>
+
     <table id="distribuicoesTable">
         <thead>
             <tr>
@@ -30,7 +33,7 @@
         <tbody id="distribuicoesTableDados">
         </tbody>
     </table>
-    
+
     <script src="distribuicao.js"></script>
 </body>
 

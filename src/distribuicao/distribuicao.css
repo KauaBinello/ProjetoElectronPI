@@ -93,12 +93,22 @@ button:focus-visible {
   outline-offset: 4px;
 }
 
-#cadastrar-novo {
-  margin-bottom: 14px;
+/* ================================================= */
+/* ============= AJUSTES DE LAYOUT AQUI ============ */
+/* ================================================= */
+
+/* [1. ADICIONADO] Container para alinhar o campo de busca e o botão */
+.toolbar-container {
+  display: flex;
+  align-items: stretch; /* Garante que ambos tenham a mesma altura */
+  gap: 12px;
+  margin-bottom: 14px; /* Espaçamento abaixo do conjunto */
 }
 
+/* [2. MODIFICADO] O campo de pesquisa agora se estica para preencher o espaço */
 #campo-pesquisa {
-  width: 100%;
+  /* width: 100%; */ /* REMOVIDO */
+  flex-grow: 1; /* ADICIONADO */
   padding: 11px 14px;
   font-size: 14px;
   background-color: var(--bg-surface);
@@ -106,7 +116,14 @@ button:focus-visible {
   border-radius: var(--border-radius-medium);
   box-shadow: var(--shadow-inset);
   transition: var(--transition-smooth);
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */ /* REMOVIDO */
+}
+
+/* [3. MODIFICADO] O botão não precisa mais de margem e não encolhe */
+#cadastrar-novo {
+  /* margin-bottom: 14px; */ /* REMOVIDO */
+  flex-shrink: 0; /* ADICIONADO */
+  padding: 0 20px;
 }
 
 #campo-pesquisa:focus {
@@ -163,10 +180,6 @@ tbody tr:last-child td {
   border-bottom: none;
 }
 
-tbody tr {
-  transition: background-color 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 tbody tr:hover {
   background-color: var(--bg-row-hover);
   transform: scale(1.002);
@@ -179,6 +192,11 @@ i[data-lucide] {
   height: 20px;
   stroke: var(--color-primary);
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.25s ease;
+}
+
+/* [4. ADICIONADO] Garante que o ícone do botão principal seja branco */
+#cadastrar-novo i[data-lucide] {
+  stroke: var(--color-text-light);
 }
 
 i[data-lucide]:hover {
@@ -204,7 +222,6 @@ td i[data-lucide] {
   body {
     padding: 16px;
   }
-
   thead th,
   th,
   td {
@@ -212,14 +229,12 @@ td i[data-lucide] {
     font-size: 12px;
     min-height: 24px;
   }
-
   td button {
     padding: 5px 8px;
     font-size: 11px;
     min-width: 18px;
     min-height: 16px;
   }
-
   td i[data-lucide] {
     width: 12px;
     height: 12px;
@@ -227,28 +242,29 @@ td i[data-lucide] {
 }
 
 @media (max-width: 480px) {
+  /* [5. ADICIONADO] Em telas pequenas, o layout volta a ser vertical */
+  .toolbar-container {
+      flex-direction: column;
+  }
+
   button {
     width: 100%;
     padding: 10px;
   }
-
   th,
   td {
     font-size: 11px;
     padding: 6px;
     min-height: 18px;
   }
-
   td button {
     padding: 4px 6px;
     font-size: 10px;
     min-width: 12px;
     min-height: 10px;
   }
-
   td i[data-lucide] {
     width: 10px;
     height: 10px;
   }
 }
-
